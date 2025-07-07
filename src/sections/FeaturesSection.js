@@ -38,11 +38,9 @@ function FeaturesSection() {
 	const cardsRef = useRef(null);
 	const [scroll, setScroll] = useState(0);
 
-	// Card and layout constants
 	const cardWidth = 340;
 	const gap = 0;
-	const visibleCards = 2.5; // How many cards are visible at start
-
+	const visibleCards = 2.5; 
 	useEffect(() => {
 		const handleScroll = () => {
 			if (!sectionRef.current || !cardsRef.current) return;
@@ -50,15 +48,13 @@ function FeaturesSection() {
 			const cards = cardsRef.current;
 			const sectionRect = section.getBoundingClientRect();
 			const windowHeight = window.innerHeight;
-			const totalCards = features.length + 1; // +1 for yellow card
+			const totalCards = features.length + 1; 
 			const totalWidth = totalCards * cardWidth;
-			const scrollable = totalWidth - section.offsetWidth + 64; // 64 for padding
+			const scrollable = totalWidth - section.offsetWidth + 64; 
 
-			// Where the sticky section starts and ends
 			const start = section.offsetTop - windowHeight * 0.15;
 			const end = start + scrollable;
 
-			// Clamp scroll
 			const y = window.scrollY;
 			if (y < start) {
 				setScroll(0);
@@ -77,16 +73,13 @@ function FeaturesSection() {
 		};
 	}, []);
 
-	// Scale cards based on their distance from the left edge (as they move out, they shrink)
 	const getScale = (i) => {
 		const left = i * cardWidth - scroll;
 		const center = (window.innerWidth - cardWidth) / 2;
 		const dist = Math.abs(left - center);
-		// Shrink more as they move out of view
 		return Math.max(0.85, 1 - dist / 1200);
 	};
 
-	// Section height: enough to scroll all cards horizontally
 	const totalCards = features.length + 1;
 	const scrollableWidth = totalCards * cardWidth;
 	const sectionHeight = scrollableWidth + 600;
@@ -114,24 +107,18 @@ function FeaturesSection() {
 					}}
 				>
 					{[...features, { title: "", heading: "", desc: "", img: "", isFinal: true }].map((f, i) => {
-						// Calculate how far we've scrolled in "cards"
 						const progress = scroll / cardWidth;
-						// If this card index is less than progress, it's collapsed and stacked
 						const isCollapsed = i < progress;
-						// The currently open card
 						const isActive = Math.floor(progress) === i;
-						// The last card (yellow)
 						const isFinal = f.isFinal;
 
-						// Collapsed cards stack at the left, open card slides in, others follow
 						let x = 0;
 						if (isCollapsed) {
-							x = i * 60; // collapsed width (adjust as needed)
+							x = i * 60; 
 						} else {
 							x = progress * 60 + (i - progress) * cardWidth;
 						}
 
-						// Scale and zIndex
 						const scale = isCollapsed ? 0.7 : isActive ? 1 : 0.92;
 						const zIndex = isActive ? 20 : 10 - i;
 
