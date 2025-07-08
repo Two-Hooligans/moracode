@@ -34,12 +34,12 @@ export default function FaqSection() {
   return (
     <section className="bg-[#DDDDDD] border border-gray-400 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="font-mono text-3xl mb-8">FAQ</h2>
+        <h2 className="text-3xl mb-8">FAQ</h2>
         <div className="space-y-2">
           {faqs.map((faq, i) => (
             <div key={i} className="border-b border-gray-300">
               <div className="flex items-start justify-between py-4">
-                <div className="font-mono text-base md:text-lg">
+                <div className="text-base md:text-lg">
                   {faq.question}
                 </div>
                 <button
@@ -63,7 +63,7 @@ export default function FaqSection() {
                 </button>
               </div>
               {open === i && (
-                <div className="font-mono text-xs text-gray-800 pb-6 pl-1 animate-fade-in">
+                <div className="text-xs text-gray-800 pb-6 pl-1 animate-fade-in">
                   {faq.answer}
                 </div>
               )}

@@ -10,18 +10,18 @@ export default function SetupGuideSection() {
           AND RELIABILITY FIRSTHAND
         </h2>
 
-        <div className="font-mono text-xl mb-8">SET UP GUIDE:</div>
+        <div className=" text-xl mb-8">SET UP GUIDE:</div>
 
         <div className="flex flex-col md:flex-row gap-12 md:gap-0 border-t border-gray-300">
           {/* Step 1 */}
           <div className="flex-1 pt-8 pr-8 border-b-2 md:border-b-0 md:border-r md:border-t-0 border-black relative">
             <div className="flex items-start gap-4">
-              <span className="text-5xl font-normal font-mono">1</span>
+              <span className="text-5xl font-normal ">1</span>
               <div>
-                <div className="text-lg font-mono font-normal">ACTIVATE<br />THE KEY</div>
+                <div className="text-lg  font-normal">ACTIVATE<br />THE KEY</div>
               </div>
             </div>
-            <div className="mt-6 text-xs text-gray-700 font-mono">
+            <div className="mt-6 text-xs text-gray-700 ">
               Activate the key by Logging in to Moracode.<br />
               Don’t have it? Get one <a href="#" className="underline">here</a>
             </div>
@@ -29,12 +29,12 @@ export default function SetupGuideSection() {
           {/* Step 2 */}
           <div className="flex-1 pt-8 px-8 border-b-2 md:border-b-0 md:border-r md:border-t-0 border-gray-300 relative">
             <div className="flex items-start gap-4">
-              <span className="text-5xl font-normal font-mono text-gray-400">2</span>
+              <span className="text-5xl font-normal  text-gray-400">2</span>
               <div>
-                <div className="text-lg font-mono font-normal text-gray-400">CONFIGURE</div>
+                <div className="text-lg  font-normal text-gray-400">CONFIGURE</div>
               </div>
             </div>
-            <div className="mt-6 text-xs text-gray-700 font-mono">
+            <div className="mt-6 text-xs text-gray-700 ">
               Set your proffered Conversation, Indexing and<br />
               Embedding Model
             </div>
@@ -42,12 +42,12 @@ export default function SetupGuideSection() {
           {/* Step 3 */}
           <div className="flex-1 pt-8 pl-8 border-b-2 md:border-b-0 border-gray-300 relative">
             <div className="flex items-start gap-4">
-              <span className="text-5xl font-normal font-mono text-gray-400">3</span>
+              <span className="text-5xl font-normal  text-gray-400">3</span>
               <div>
-                <div className="text-lg font-mono font-normal text-gray-400">CODE</div>
+                <div className="text-lg  font-normal text-gray-400">CODE</div>
               </div>
             </div>
-            <div className="mt-6 text-xs text-gray-700 font-mono">
+            <div className="mt-6 text-xs text-gray-700 ">
               Test our product using your code that runs locally on<br />
               your machine, never leaving your cloud
             </div>

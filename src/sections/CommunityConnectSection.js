@@ -67,13 +67,13 @@ export default function CommunityConnectSection() {
 						<div className="w-1/3 flex flex-col justify-between px-4">
 							{!collapsed[i] && (
 								<div>
-									<div className="font-mono text-xl mb-1">{item.title}</div>
-									<div className="text-xs font-mono mb-6">{item.desc}</div>
+									<div className="text-xl mb-1">{item.title}</div>
+									<div className="text-xs mb-6">{item.desc}</div>
 								</div>
 							)}
 							<a
 								href={item.link}
-								className="inline-block mt-2 rounded px-6 py-3 font-mono font-semibold text-base border border-gray-900 transition-colors"
+								className="inline-block mt-2 rounded px-6 py-3 font-semibold text-base border border-gray-900 transition-colors"
 								style={{
 									background: item.buttonColor,
 									color: "#191919",

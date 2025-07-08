@@ -83,7 +83,7 @@ function FeaturesSection() {
 			}}
 		>
 			<div className="sticky top-0 left-0 w-full h-[520px] bg-[#DDDDDD] z-10 overflow-hidden">
-				<h2 className="font-mono text-2xl md:text-3xl font-bold text-gray-900 mb-8 px-8 pt-8">
+				<h2 className=" text-2xl md:text-3xl font-bold text-gray-900 mb-8 px-8 pt-8">
 					BY DEVELOPERS FOR DEVELOPERS AND
 					<br />FOCUSED ON THE WORKFLOW
 				</h2>
@@ -108,11 +108,11 @@ function FeaturesSection() {
 							<div className="p-6 flex flex-col h-full items-center justify-center">
 								{f.isFinal ? (
 									<>
-										<div className="font-mono text-2xl font-bold mb-4 text-gray-900 text-center">
+										<div className=" text-2xl font-bold mb-4 text-gray-900 text-center">
 											GET STARTED
 										</div>
 										<button
-											className="rounded px-6 py-3 font-mono font-semibold text-base transition-colors border border-gray-900"
+											className="rounded px-6 py-3  font-semibold text-base transition-colors border border-gray-900"
 											style={{ backgroundColor: "#191919", color: "#D2F944" }}
 										>
 											START NOW →
@@ -120,12 +120,12 @@ function FeaturesSection() {
 									</>
 								) : (
 									<>
-										<div className="text-xs font-mono mb-2">{f.title}</div>
-										<div className="font-mono text-2xl whitespace-pre-line mb-4">{f.heading}</div>
+										<div className="text-xs  mb-2">{f.title}</div>
+										<div className=" text-2xl whitespace-pre-line mb-4">{f.heading}</div>
 										{f.img && (
 											<img src={f.img} alt="" className="mb-4 w-24 h-24 object-contain" />
 										)}
-										<div className="text-sm text-gray-700 font-mono mt-auto">{f.desc}</div>
+										<div className="text-sm text-gray-700  mt-auto">{f.desc}</div>
 									</>
 								)}
 							</div>
