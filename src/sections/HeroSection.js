@@ -1,7 +1,7 @@
 function HeroSection() {
   return (
     <section className="w-full pt-16 px-8 pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
-      <div className="max-w-5xl mx-auto flex flex-col gap-8 relative">
+      <div className=" mx-auto flex flex-col gap-8 relative">
         <div>
           <h1 className="font-mono text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
             MORACODE:<br />

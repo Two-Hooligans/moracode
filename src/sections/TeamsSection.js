@@ -1,7 +1,7 @@
 function TeamsSection() {
   return (
-    <section className="w-full bg-white px-8 pt-96 pb-16"> 
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start gap-8">
+    <section className="w-full bg-white px-8 pb-16" style={{paddingTop: '45%'}}> 
+      <div className="mx-auto flex flex-col md:flex-row items-start gap-8">
         <div className="flex-1">
           <h2 className="font-mono text-xl md:text-2xl font-bold text-gray-900 mb-6 tracking-wide">
             BUILT FOR TEAMS THAT VALUE SECURITY, PERFORMANCE, AND TRANSPARENCY 
