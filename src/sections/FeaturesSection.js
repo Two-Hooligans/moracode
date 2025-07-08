@@ -27,8 +27,8 @@ const features = [
 	},
 	{
 		title: "SECURE",
-		heading: "",
-		desc: "",
+		heading: "DEEP CONTEXT\nAWARENESS",
+		desc: "Each project space is self-contained, with its own files and context, allowing the AI to stay focused and precise—especially useful for complex, multi-layered development work.",
 		img: "/assets/images/feature5.svg",
 	},
 ];
@@ -39,14 +39,10 @@ function FeaturesSection() {
 	const [scroll, setScroll] = useState(0);
 
 	const cardWidth = 340;
-	const gap = 0;
-	const visibleCards = 2.5; 
 	useEffect(() => {
 		const handleScroll = () => {
 			if (!sectionRef.current || !cardsRef.current) return;
 			const section = sectionRef.current;
-			const cards = cardsRef.current;
-			const sectionRect = section.getBoundingClientRect();
 			const windowHeight = window.innerHeight;
 			const totalCards = features.length + 1; 
 			const totalWidth = totalCards * cardWidth;
@@ -73,12 +69,6 @@ function FeaturesSection() {
 		};
 	}, []);
 
-	const getScale = (i) => {
-		const left = i * cardWidth - scroll;
-		const center = (window.innerWidth - cardWidth) / 2;
-		const dist = Math.abs(left - center);
-		return Math.max(0.85, 1 - dist / 1200);
-	};
 
 	const totalCards = features.length + 1;
 	const scrollableWidth = totalCards * cardWidth;
@@ -99,74 +89,48 @@ function FeaturesSection() {
 				</h2>
 				<div
 					ref={cardsRef}
-					className="flex gap-0 absolute left-0 top-32 px-8"
-					style={{
-						transform: `translateX(-${scroll}px)`,
-						transition: "transform 0.1s",
-						willChange: "transform",
+					className="relative mx-auto flex"
+					style={{												
+						overflow: "scroll",
 					}}
 				>
-					{[...features, { title: "", heading: "", desc: "", img: "", isFinal: true }].map((f, i) => {
-						const progress = scroll / cardWidth;
-						const isCollapsed = i < progress;
-						const isActive = Math.floor(progress) === i;
-						const isFinal = f.isFinal;
-
-						let x = 0;
-						if (isCollapsed) {
-							x = i * 60; 
-						} else {
-							x = progress * 60 + (i - progress) * cardWidth;
-						}
-
-						const scale = isCollapsed ? 0.7 : isActive ? 1 : 0.92;
-						const zIndex = isActive ? 20 : 10 - i;
-
-						return (
-							<div
-								key={i}
-								className={`border flex flex-col transition-all duration-300 ${isFinal ? "" : "bg-[#DDDDDD] border-gray-300"} ${isFinal ? "" : ""}`}
-								style={{
-									width: cardWidth,
-									minHeight: 400,
-									position: "absolute",
-									left: `${x}px`,
-									top: 0,
-									zIndex,
-									transform: `scale(${scale})`,
-									opacity: 1,
-									background: isFinal ? "#D2F944" : undefined,
-									boxShadow: isActive ? "0 8px 32px rgba(0,0,0,0.08)" : "none",
-									transition: "all 0.3s",
-								}}
-							>
-								<div className="p-6 flex flex-col h-full items-center justify-center">
-									{isFinal ? (
-										<>
-											<div className="font-mono text-2xl font-bold mb-4 text-gray-900 text-center">
-												GET STARTED
-											</div>
-											<button
-												className="rounded px-6 py-3 font-mono font-semibold text-base transition-colors border border-gray-900"
-												style={{ backgroundColor: "#191919", color: "#D2F944" }}
-											>
-												START NOW →
-											</button>
-										</>
-									) : (
-										<>
-											<div className="text-xs font-mono mb-2">{f.title}</div>
-											<div className="font-mono text-2xl whitespace-pre-line mb-4">{f.heading}</div>
-											{f.img && (
-												<img src={f.img} alt="" className="mb-4 w-24 h-24 object-contain" />
-											)}
-											<div className="text-sm text-gray-700 font-mono mt-auto">{f.desc}</div>
-										</>
-									)}
-								</div>
+					{[...features, { title: "", heading: "", desc: "", img: "", isFinal: true }].map((f, i) => (
+						<div
+							key={i}
+							className={`border flex flex-col ${f.isFinal ? "" : "bg-[#DDDDDD] border-gray-300"}`}
+							style={{
+								width: cardWidth,
+								minHeight: 400,
+								flex: "0 0 auto",
+								background: f.isFinal ? "#D2F944" : undefined,
+							}}
+						>
+							<div className="p-6 flex flex-col h-full items-center justify-center">
+								{f.isFinal ? (
+									<>
+										<div className="font-mono text-2xl font-bold mb-4 text-gray-900 text-center">
+											GET STARTED
+										</div>
+										<button
+											className="rounded px-6 py-3 font-mono font-semibold text-base transition-colors border border-gray-900"
+											style={{ backgroundColor: "#191919", color: "#D2F944" }}
+										>
+											START NOW →
+										</button>
+									</>
+								) : (
+									<>
+										<div className="text-xs font-mono mb-2">{f.title}</div>
+										<div className="font-mono text-2xl whitespace-pre-line mb-4">{f.heading}</div>
+										{f.img && (
+											<img src={f.img} alt="" className="mb-4 w-24 h-24 object-contain" />
+										)}
+										<div className="text-sm text-gray-700 font-mono mt-auto">{f.desc}</div>
+									</>
+								)}
 							</div>
-						);
-					})}
+						</div>
+					))}
 				</div>
 			</div>
 		</section>
