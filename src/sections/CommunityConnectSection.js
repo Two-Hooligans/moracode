@@ -33,11 +33,10 @@ export default function CommunityConnectSection() {
 			if (!sectionRef.current) return;
 			const rect = sectionRef.current.getBoundingClientRect();
 			const windowHeight = window.innerHeight;
-			const collapseStep = 100;
+			const collapseStep = 120;
 
-			// Start collapsing earlier by increasing the multiplier
 			let scrollY =
-				window.scrollY + windowHeight * 0.6 - sectionRef.current.offsetTop;
+				window.scrollY + windowHeight * 0.2 - sectionRef.current.offsetTop;
 			let newCollapsed = [false, false, false];
 			if (scrollY > 0) newCollapsed[0] = scrollY > collapseStep * 1;
 			if (scrollY > collapseStep) newCollapsed[1] = scrollY > collapseStep * 2;
@@ -53,13 +52,12 @@ export default function CommunityConnectSection() {
 			ref={sectionRef}
 			className="bg-white border border-gray-400 py-0 px-0"
 		>
-			<div className="max-w-6xl mx-auto">
+			<div className="mx-auto">
 				{items.map((item, i) => (
 					<div
 						key={i}
 						className={`flex items-center border-b border-gray-400 last:border-b-0 transition-all duration-500`}
-						style={{
-							minHeight: 180,
+						style={{							
 							padding: "32px 0",							
 						}}
 					>
@@ -86,24 +84,19 @@ export default function CommunityConnectSection() {
 								{item.button} <span aria-hidden>→</span>
 							</a>
 						</div>
-						{/* Right: Box (photo placeholder, always full width) */}
+						{/* Right: Box */}
 						<div
-							className={`transition-all duration-500 bg-gray-200 rounded-xl flex items-center justify-center`}
+							className="transition-all duration-500 bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden"
 							style={{
 								width: "100%",
-								height: 120,
+								height: !collapsed[i] ? 400 : 100,
 								marginLeft: 32,
 								marginRight: 16,
 								minWidth: 120,
 								maxWidth: "100%",
-								minHeight: 60,
-								fontSize: 22,
-								color: "#888",
-								fontFamily: "monospace",
-								letterSpacing: 2,								
+								minHeight: 100,
 							}}
-						>
-							PHOTO
+						>						
 						</div>
 					</div>
 				))}

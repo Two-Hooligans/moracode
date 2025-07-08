@@ -4,7 +4,7 @@ export default function SetupGuideSection() {
   return (
     <section className="bg-white py-20 px-4 md:px-16">
       <div className=" mx-auto">
-        <h2 className="font-mono text-3xl md:text-4xl font-normal text-gray-900 mb-20 leading-snug">
+        <h2 className=" text-3xl md:text-4xl font-normal text-gray-900 mb-20 leading-snug">
           START EXPLORING THE PRODUCT AND<br />
           VALIDATE ITS PERFORMANCE, SECURITY,<br />
           AND RELIABILITY FIRSTHAND

@@ -3,7 +3,7 @@ function HeroSection() {
     <section className="w-full pt-16 px-8 pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
       <div className=" mx-auto flex flex-col gap-8 relative">
         <div>
-          <h1 className="text-4xl md:text-5xl  text-gray-900 mb-4 leading-tight">
+          <h1 className="text-5xl md:text-7xl  text-gray-900 mb-8 leading-tight">
             MORACODE:<br />
             SECURE AI CODING ASSISTANT
           </h1>
@@ -12,32 +12,24 @@ function HeroSection() {
           </p>
           <div className="flex gap-4">
             <button
-              className="rounded px-5 py-2 font-semibold text-base transition-colors"
-              style={{ backgroundColor: '#D2F944', color: '#191919' }}
-              onMouseOver={e => {
-                e.currentTarget.style.backgroundColor = '#191919';
-                e.currentTarget.style.color = '#D2F944';
+              className="rounded px-5 py-2 text-base border border-gray-400 button-fill-effect"
+              style={{
+                backgroundColor: '#D2F944',
+                color: '#191919',                
               }}
-              onMouseOut={e => {
-                e.currentTarget.style.backgroundColor = '#D2F944';
-                e.currentTarget.style.color = '#191919';
-              }}
+              type="button"
             >
-              GET STARTED →
+              <span>GET STARTED →</span>
             </button>
             <button
-              className="rounded px-5 py-2 font-semibold text-base border border-gray-900 transition-colors"
-              style={{ backgroundColor: '#fff', color: '#191919' }}
-              onMouseOver={e => {
-                e.currentTarget.style.backgroundColor = '#D2F944';
-                e.currentTarget.style.color = '#191919';
+              className="rounded px-5 py-2 text-base border border-gray-400 button-fill-effect"
+              style={{
+                backgroundColor: 'transparent',
+                color: '#191919',                
               }}
-              onMouseOut={e => {
-                e.currentTarget.style.backgroundColor = '#fff';
-                e.currentTarget.style.color = '#191919';
-              }}
+              type="button"
             >
-              COMMUNITY →
+              <span>COMMUNITY →</span>
             </button>
           </div>
         </div>
