@@ -91,7 +91,7 @@ function FeaturesSection() {
 					ref={cardsRef}
 					className="relative mx-auto flex"
 					style={{												
-						overflow: "scroll",
+						overflow: "hidden",
 					}}
 				>
 					{[...features, { title: "", heading: "", desc: "", img: "", isFinal: true }].map((f, i) => (
