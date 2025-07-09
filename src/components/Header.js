@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+const NAV_ITEMS = [
+  { label: "ABOUT", href: "#about" },
+  { label: "FEATURES", href: "#features" },
+  { label: "FAQ", href: "#faq" },
+];
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,14 +25,14 @@ function Header() {
 
       {/* Desktop Nav */}
       <nav className="hidden md:flex gap-8">
-        {['ABOUT', 'FEATURES', 'FAQ'].map((item) => (
+        {NAV_ITEMS.map((item) => (
           <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
+            key={item.label}
+            href={item.href}
             className="relative text-gray-900 text-base font-medium transition-colors group duration-500 hover:text-gray-700"
           >
             <span className="opacity-0 group-hover:opacity-100 transition-opacity absolute -left-3 duration-500">{'{'}</span>
-            <span className="transition-colors">{item}</span>
+            <span className="transition-colors">{item.label}</span>
             <span className="opacity-0 group-hover:opacity-100 transition-opacity absolute -right-3 duration-1000">{'}'}</span>
           </a>
         ))}
@@ -80,14 +86,14 @@ function Header() {
               </svg>
             </button>
             <nav className="flex flex-col gap-6">
-              {['ABOUT', 'FEATURES', 'FAQ'].map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
+                  key={item.label}
+                  href={item.href}
                   className="text-gray-900 text-lg font-medium"
                   onClick={() => setMenuOpen(false)}
                 >
-                  {item}
+                  {item.label}
                 </a>
               ))}
             </nav>
