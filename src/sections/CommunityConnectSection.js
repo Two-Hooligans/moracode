@@ -30,8 +30,7 @@ export default function CommunityConnectSection() {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			if (!sectionRef.current) return;
-			const rect = sectionRef.current.getBoundingClientRect();
+			if (!sectionRef.current) return;			
 			const windowHeight = window.innerHeight;
 			const collapseStep = 120;
 
