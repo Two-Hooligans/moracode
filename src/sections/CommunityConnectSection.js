@@ -30,21 +30,29 @@ export default function CommunityConnectSection() {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			if (!sectionRef.current) return;			
+			if (!sectionRef.current) return;
 			const windowHeight = window.innerHeight;
 			const collapseStep = 120;
 
 			let scrollY =
 				window.scrollY + windowHeight * 0.2 - sectionRef.current.offsetTop;
 			let newCollapsed = [false, false, false];
-			if (scrollY > 0) newCollapsed[0] = scrollY > collapseStep * 1;
-			if (scrollY > collapseStep) newCollapsed[1] = scrollY > collapseStep * 2;
-			if (scrollY > collapseStep * 2) newCollapsed[2] = scrollY > collapseStep * 3;
-			setCollapsed(newCollapsed);
+			if (scrollY >= 0) newCollapsed[0] = scrollY >= collapseStep * 1;
+			if (scrollY >= collapseStep) newCollapsed[1] = scrollY >= collapseStep * 2;
+			if (scrollY >= collapseStep * 2) newCollapsed[2] = scrollY >= collapseStep * 3;
+
+			// Only update if changed
+			if (
+				newCollapsed[0] !== collapsed[0] ||
+				newCollapsed[1] !== collapsed[1] ||
+				newCollapsed[2] !== collapsed[2]
+			) {
+				setCollapsed(newCollapsed);
+			}
 		};
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
+	}, [collapsed]);
 
 	return (
 		<section
