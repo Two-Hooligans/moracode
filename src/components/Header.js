@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <header
-      className="w-full flex items-center justify-between px-8 h-16"
+      className="w-full flex items-center justify-between px-8 py-3 "
       style={{
         backgroundColor: '#DDDDDD'
       }}

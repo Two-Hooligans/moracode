@@ -72,7 +72,7 @@ function FeaturesSection() {
 				<div
 					className="flex flex-row items-stretch justify-start gap-0"
 					style={{
-						height: "calc(100vh - 4rem)",
+						height: "100%",
 					}}
 				>
 					{allCards.map((f, i) => {
@@ -85,7 +85,7 @@ function FeaturesSection() {
 						return (
 							<div
 								key={i}
-								className={`h-full border flex flex-col transition-all duration-500 ${f.isFinal ? "" : "bg-[#DDDDDD] border-gray-300"}`}
+								className={`border flex flex-col transition-all duration-500 ${f.isFinal ? "" : "bg-[#DDDDDD] border-gray-300"}`}
 								style={{
 									width,
 									minWidth: width,
@@ -97,6 +97,7 @@ function FeaturesSection() {
 									justifyContent: "center",
 									transition: "all 0.5s cubic-bezier(.4,0,.2,1)",
 									marginRight: 0,
+									height: "80vh",
 								}}
 							>
 								<div className="p-4 flex flex-col h-full items-center justify-center w-full">

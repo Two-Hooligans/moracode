@@ -1,6 +1,6 @@
 function HeroSection() {
   return (
-    <section className="w-full pt-16 px-8 pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
+    <section className="w-full pt-16 px-8 pb-28 md:pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
       <div className=" mx-auto flex flex-col gap-8 relative">
         <div>
           <h1 className="text-5xl md:text-7xl  text-gray-900 mb-8 leading-tight">
@@ -33,7 +33,7 @@ function HeroSection() {
             </button>
           </div>
         </div>
-        <div className="w-full flex justify-center relative z-20" style={{ height: '100%', top: '64px' }}>
+        <div className="w-full flex justify-center relative z-20 mt-4 md:mt-8 h-full">
           <img
             src="/assets/images/code_editor.png"
             alt="Code Editor"

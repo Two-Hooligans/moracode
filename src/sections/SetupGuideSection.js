@@ -12,7 +12,7 @@ export default function SetupGuideSection() {
 
         <div className="flex flex-col md:flex-row gap-12 md:gap-0 border-t border-gray-300">
           {/* Step 1 */}
-          <div className="flex-1 pt-8 pr-8 border-b-2 md:border-b-0 md:border-r md:border-t-0 border-black relative">
+          <div className="flex-1 pt-8 pr-8 md:border-t-0 border-black relative">
             <div className="flex items-start gap-4">
               <span className="text-5xl font-normal ">1</span>
               <div>
@@ -25,7 +25,7 @@ export default function SetupGuideSection() {
             </div>
           </div>
           {/* Step 2 */}
-          <div className="flex-1 pt-8 px-8 border-b-2 md:border-b-0 md:border-r md:border-t-0 border-gray-300 relative">
+          <div className="flex-1 pt-8 px-0 md:px-8 md:border-t-0 border-gray-300 relative ">
             <div className="flex items-start gap-4">
               <span className="text-5xl font-normal  text-gray-400">2</span>
               <div>
@@ -38,7 +38,7 @@ export default function SetupGuideSection() {
             </div>
           </div>
           {/* Step 3 */}
-          <div className="flex-1 pt-8 pl-8 border-b-2 md:border-b-0 border-gray-300 relative">
+          <div className="flex-1 pt-8 px-0 md:px-8 border-gray-300 relative">
             <div className="flex items-start gap-4">
               <span className="text-5xl font-normal  text-gray-400">3</span>
               <div>
