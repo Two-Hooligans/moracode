@@ -1,37 +1,6 @@
 import { useRef, useEffect, useState } from "react";
-
-const features = [
-	{
-		title: "SAFE",
-		heading: "PRIVATE SENIOR\nAI CODE ENGINEER",
-		desc: "Your code never leaves your cloud. Everything runs locally on your machine, with zero data passing through our servers.",
-		img: "/assets/images/feature1.svg",
-	},
-	{
-		title: "PRIVATE",
-		heading: "YOUR OWN CODE\nAND FILES",
-		desc: "Add your own documents, source code, and reference material into each project.",
-		img: "/assets/images/feature2.svg",
-	},
-	{
-		title: "ORGANIZED",
-		heading: "PROJECT-BASED\nWORKFLOWS",
-		desc: "Add your own documents, source code, and reference material into each project.",
-		img: "/assets/images/feature3.svg",
-	},
-	{
-		title: "INTELLIGENT",
-		heading: "DEEP CONTEXT\nAWARENESS",
-		desc: "Each project space is self-contained, with its own files and context, allowing the AI to stay focused and precise—especially useful for complex, multi-layered development work.",
-		img: "/assets/images/feature4.svg",
-	},
-	{
-		title: "SECURE",
-		heading: "DEEP CONTEXT\nAWARENESS",
-		desc: "Each project space is self-contained, with its own files and context, allowing the AI to stay focused and precise—especially useful for complex, multi-layered development work.",
-		img: "/assets/images/feature5.svg",
-	},
-];
+import features from "../data/features";
+import { getCollapsedCards } from "../utils/featuresCollapse";
 
 function FeaturesSection() {
 	const sectionRef = useRef(null);
@@ -44,7 +13,6 @@ function FeaturesSection() {
 
 	const collapseStep = 150;
 	const totalCollapse = (allCards.length - 1) * collapseStep;
-
 	const [sectionHeight, setSectionHeight] = useState(totalCollapse + window.innerHeight);
 
 	useEffect(() => {
@@ -72,7 +40,7 @@ function FeaturesSection() {
 				localScroll = y - start;
 			}
 			setScroll(localScroll);
-			
+
 			if (y > start + totalCollapse && localScroll < totalCollapse) {
 				window.scrollTo({ top: start + totalCollapse, behavior: "auto" });
 			}
@@ -86,9 +54,7 @@ function FeaturesSection() {
 		};
 	}, [totalCollapse]);
 
-	const collapsedCards = allCards.map((_, i) =>
-		i < allCards.length - 1 ? scroll >= (i + 1) * collapseStep : false
-	);
+	const collapsedCards = getCollapsedCards(scroll, collapseStep, allCards.length);
 
 	return (
 		<section

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function SetupGuideSection() {
   return (
     <section className="bg-white py-20 px-4 md:px-16">
