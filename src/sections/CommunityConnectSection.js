@@ -41,7 +41,6 @@ export default function CommunityConnectSection() {
 			if (scrollY >= collapseStep) newCollapsed[1] = scrollY >= collapseStep * 2;
 			if (scrollY >= collapseStep * 2) newCollapsed[2] = scrollY >= collapseStep * 3;
 
-			// Only update if changed
 			if (
 				newCollapsed[0] !== collapsed[0] ||
 				newCollapsed[1] !== collapsed[1] ||
