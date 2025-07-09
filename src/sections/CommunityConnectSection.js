@@ -1,57 +1,35 @@
 import { useRef, useEffect, useState } from "react";
-
-const items = [
-	{
-		title: "OUR DISCORD",
-		desc: "Lorem ipsum dolor sit amet",
-		button: "JOIN DISCORD",
-		buttonColor: "#D2F944",
-		link: "#",
-	},
-	{
-		title: "JOIN REDDIT",
-		desc: "Lorem Ipsum",
-		button: "JOIN REDDIT",
-		buttonColor: "#D2F944",
-		link: "#",
-	},
-	{
-		title: "GET IN TOUCH DIRECTLY",
-		desc: "Lorem ipsum dolor sit amet",
-		button: "SEND MESSAGE",
-		buttonColor: "#D2F944",
-		link: "#",
-	},
-];
+import communityConnectItems from "../data/communityConnectItems";
+import { getCollapsedStates } from "../utils/communityConnectScroll";
 
 export default function CommunityConnectSection() {
 	const sectionRef = useRef(null);
-	const [collapsed, setCollapsed] = useState([false, false, false]);
+	const [collapsed, setCollapsed] = useState(
+		Array(communityConnectItems.length).fill(false)
+	);
 
 	useEffect(() => {
 		const handleScroll = () => {
 			if (!sectionRef.current) return;
 			const windowHeight = window.innerHeight;
 			const collapseStep = 120;
-
-			let scrollY =
-				window.scrollY + windowHeight * 0.2 - sectionRef.current.offsetTop;
-			let newCollapsed = [false, false, false];
-			if (scrollY >= 0) newCollapsed[0] = scrollY >= collapseStep * 1;
-			if (scrollY >= collapseStep) newCollapsed[1] = scrollY >= collapseStep * 2;
-			if (scrollY >= collapseStep * 2) newCollapsed[2] = scrollY >= collapseStep * 3;
-
-			if (
-				newCollapsed[0] !== collapsed[0] ||
-				newCollapsed[1] !== collapsed[1] ||
-				newCollapsed[2] !== collapsed[2]
-			) {
-				setCollapsed(newCollapsed);
-			}
+			const newCollapsed = getCollapsedStates(
+				window.scrollY,
+				sectionRef.current.offsetTop,
+				windowHeight,
+				collapseStep,
+				communityConnectItems.length
+			);
+			setCollapsed((prev) => {
+				if (JSON.stringify(newCollapsed) !== JSON.stringify(prev)) {
+					return newCollapsed;
+				}
+				return prev;
+			});
 		};
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, [collapsed]);
+	}, []);
 
 	return (
 		<section
@@ -59,12 +37,12 @@ export default function CommunityConnectSection() {
 			className="bg-white border border-gray-400 py-0 px-0"
 		>
 			<div className="mx-auto">
-				{items.map((item, i) => (
+				{communityConnectItems.map((item, i) => (
 					<div
 						key={i}
 						className={`flex items-center border-b border-gray-400 last:border-b-0 transition-all duration-500`}
-						style={{							
-							padding: "32px 0",							
+						style={{
+							padding: "32px 0",
 						}}
 					>
 						{/* Left: Info & Button */}
@@ -102,7 +80,7 @@ export default function CommunityConnectSection() {
 								maxWidth: "100%",
 								minHeight: 100,
 							}}
-						>						
+						>
 						</div>
 					</div>
 				))}
