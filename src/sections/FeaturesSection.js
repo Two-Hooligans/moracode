@@ -59,13 +59,13 @@ function FeaturesSection() {
 	return (
 		<section
 			ref={sectionRef}
-			className="relative w-full bg-[#DDDDDD]"
+			className="relative w-full bg-[#DDDDDD] pt-32"
 			style={{
 				height: sectionHeight,
 			}}
 		>
 			<div className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden">
-				<h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 px-8 pt-8">
+				<h2 className="text-2xl md:text-5xl text-gray-900 mb-28 px-8 pt-8">
 					BY DEVELOPERS FOR DEVELOPERS AND
 					<br />FOCUSED ON THE WORKFLOW
 				</h2>
@@ -92,7 +92,7 @@ function FeaturesSection() {
 								width: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
 								minWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
 								maxWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
-								height: "80vh",
+								height: "71vh",
 							};
 
 						return (
