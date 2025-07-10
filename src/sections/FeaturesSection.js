@@ -70,26 +70,37 @@ function FeaturesSection() {
 					<br />FOCUSED ON THE WORKFLOW
 				</h2>
 				<div
-					className="flex flex-row items-stretch justify-start gap-0"
+					className="flex flex-col md:flex-row items-stretch justify-start gap-0"
 					style={{
 						height: "100%",
 					}}
 				>
 					{allCards.map((f, i) => {
 						const isCollapsed = collapsedCards[i];
-						const width = f.isFinal
-							? "30%"
-							: isCollapsed
-								? "15%"
-								: "30%";
+						const mobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+						const cardStyle = mobile
+							? {
+								height: isCollapsed ? 200 : 320,
+								minHeight: isCollapsed ? 60 : 320,
+								maxHeight: isCollapsed ? 60 : 320,
+								width: "100%",
+								minWidth: "100%",
+								maxWidth: "100%",
+							}
+							: {
+								width: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
+								minWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
+								maxWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
+								height: "80vh",
+							};
+
 						return (
 							<div
 								key={i}
 								className={`border flex flex-col transition-all duration-500 ${f.isFinal ? "" : "bg-[#DDDDDD] border-gray-300"}`}
 								style={{
-									width,
-									minWidth: width,
-									maxWidth: width,
+									...cardStyle,
 									flex: "0 0 auto",
 									background: f.isFinal ? "#D2F944" : undefined,
 									overflow: "hidden",
@@ -97,7 +108,6 @@ function FeaturesSection() {
 									justifyContent: "center",
 									transition: "all 0.5s cubic-bezier(.4,0,.2,1)",
 									marginRight: 0,
-									height: "80vh",
 								}}
 							>
 								<div className="p-4 flex flex-col h-full items-center justify-center w-full">
@@ -116,7 +126,7 @@ function FeaturesSection() {
 									) : (
 										<>
 											<div className="text-xs mb-2 text-center w-full">{f.title}</div>
-											{f.img && (
+											{f.img && !isCollapsed && (
 												<img src={f.img} alt="" className="mb-2 w-12 h-12 object-contain mx-auto" />
 											)}
 											{!isCollapsed && (
