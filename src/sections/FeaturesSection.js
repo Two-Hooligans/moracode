@@ -81,9 +81,7 @@ function FeaturesSection() {
 
 						const cardStyle = mobile
 							? {
-								height: isCollapsed ? 200 : 320,
-								minHeight: isCollapsed ? 60 : 320,
-								maxHeight: isCollapsed ? 60 : 320,
+								height: isCollapsed ? 60 : 370,
 								width: "100%",
 								minWidth: "100%",
 								maxWidth: "100%",
@@ -124,18 +122,41 @@ function FeaturesSection() {
 											</button>
 										</>
 									) : (
-										<>
-											<div className="text-xs mb-2 text-center w-full">{f.title}</div>
-											{f.img && !isCollapsed && (
-												<img src={f.img} alt="" className="mb-2 w-12 h-12 object-contain mx-auto" />
-											)}
-											{!isCollapsed && (
+										<div className="flex flex-col h-full items-center justify-between w-full p-2 gap-4">
+											{isCollapsed ? (
 												<>
-													<div className="text-2xl whitespace-pre-line mb-4 text-left w-full">{f.heading}</div>
-													<div className="text-sm text-gray-700 mt-auto text-left w-full">{f.desc}</div>
+													<p className="text-sm mb-4 text-center w-full">{f.title}</p>
+													{f.svg && (
+														<div className="flex justify-center w-full">
+															<div
+																className="w-24 flex items-center justify-center"
+																dangerouslySetInnerHTML={{ __html: f.svg }}
+															/>
+														</div>
+													)}
+												</>
+											) : (
+												<>
+													<div className="flex items-center justify-between mb-4 w-full gap-7">
+														<div>
+															<p className="text-sm mb-4 text-left w-full">{f.title}</p>
+															<h2 className="text-3xl whitespace-pre-line mb-4 text-left w-full">{f.heading}</h2>
+														</div>
+														<div>
+															{f.svg && (
+																<div
+																	className="w-24  flex items-center justify-center"
+																	dangerouslySetInnerHTML={{ __html: f.svg }}
+																/>
+															)}
+														</div>
+													</div>
+													<div>
+														<div className="text-sm text-gray-700 mt-auto text-left w-full">{f.desc}</div>
+													</div>
 												</>
 											)}
-										</>
+										</div>
 									)}
 								</div>
 							</div>
