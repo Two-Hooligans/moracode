@@ -90,7 +90,7 @@ function FeaturesSection() {
 								width: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
 								minWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
 								maxWidth: f.isFinal ? "30%" : isCollapsed ? "15%" : "30%",
-								height: "71vh",
+								height: "75vh",
 							};
 
 						return (
@@ -152,7 +152,7 @@ function FeaturesSection() {
 														</div>
 													</div>
 													<div>
-														<div className="text-sm text-gray-700 mt-auto text-left w-full">{f.desc}</div>
+														<div className="text-sm md:text-lg text-gray-700 mt-auto text-left w-full">{f.desc}</div>
 													</div>
 												</>
 											)}

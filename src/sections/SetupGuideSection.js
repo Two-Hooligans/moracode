@@ -2,9 +2,9 @@ import steps from '../data/guideSteps';
 
 export default function SetupGuideSection() {
   return (
-    <section className="bg-white py-20 px-4 md:px-8">
+    <section className="bg-white py-44 px-4 md:px-8">
       <div className="mx-auto">
-        <h2 className="text-3xl md:text-5xl text-gray-900 mb-20 max-w-6xl pr-16">
+        <h2 className="text-3xl md:text-5xl text-gray-900 mb-40 max-w-6xl pr-16">
           START EXPLORING THE PRODUCT AND VALIDATE ITS PERFORMANCE, SECURITY,
           AND RELIABILITY FIRSTHAND
         </h2>

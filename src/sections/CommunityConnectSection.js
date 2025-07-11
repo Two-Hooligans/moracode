@@ -34,7 +34,7 @@ export default function CommunityConnectSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-white border border-gray-400 py-0 px-0"
+      className="bg-white border border-gray-400 py-0 px-4"
     >
       <div className="mx-auto">
         {communityConnectItems.map((item, i) => (
@@ -73,7 +73,7 @@ export default function CommunityConnectSection() {
             {/* Right: Box */}
             <div
               className={
-                `transition-all duration-500 bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden px-2 ` +
+                `transition-all duration-500 bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden ` +
                 (collapsed[i]
                   ? "h-[100px] md:h-[150px]"
                   : "h-[200px] md:h-[400px]")
