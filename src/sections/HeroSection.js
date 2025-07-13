@@ -1,13 +1,13 @@
 function HeroSection() {
   return (
-    <section className="w-full pt-16 px-8 pb-32 md:pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
+    <section className="w-full pt-16 md:px-8 px-4 pb-32 md:pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
       <div className="mx-auto flex flex-col gap-8 relative">
         <div>
           <h1 className="text-5xl md:text-8xl text-gray-900 mb-8 leading-tight">
             MORACODE:<br />
             SECURE AI CODING ASSISTANT
           </h1>
-          <p className="text-3xl text-gray-700 mb-8 max-w-2xl">
+          <p className="text-xl md:text-3xl text-gray-700 mb-8 max-w-2xl">
             Your code, your AI, your rules—Moracode offers secure, intelligent and private coding assistance with no external data flow.
           </p>
           <div className="flex gap-4">

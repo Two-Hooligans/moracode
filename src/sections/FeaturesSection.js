@@ -59,13 +59,13 @@ function FeaturesSection() {
 	return (
 		<section
 			ref={sectionRef}
-			className="relative w-full bg-[#DDDDDD] pt-32"
+			className="relative w-full bg-[#DDDDDD] pt-20 md:pt-40"
 			style={{
 				height: sectionHeight,
 			}}
 		>
 			<div className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden">
-				<h2 className="text-2xl md:text-5xl text-gray-900 mb-28 px-8 pt-8">
+				<h2 className="text-2xl md:text-5xl text-gray-900 mb-12 md:mb-28 px-4">
 					BY DEVELOPERS FOR DEVELOPERS AND
 					<br />FOCUSED ON THE WORKFLOW
 				</h2>

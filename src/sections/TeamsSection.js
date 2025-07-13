@@ -1,6 +1,6 @@
 function TeamsSection() {
   return (
-    <section className="w-full bg-white px-8 pb-52 " style={{paddingTop: '55%'}}> 
+    <section className="w-full bg-white px-4 md:px-8  pb-20 md:pb-40 pt-[40%] md:pt-[55%]"> 
       <h2 className=" text-xl md:text-4xl text-gray-900 mb-8 md:mb-32 tracking-wide max-w-5xl">
         BUILT FOR TEAMS THAT VALUE SECURITY, PERFORMANCE, AND TRANSPARENCY 
       </h2>

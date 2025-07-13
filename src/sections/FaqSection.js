@@ -5,7 +5,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-[#DDDDDD] border border-gray-400 py-20 px-8">
+    <section className="bg-[#DDDDDD] border border-gray-400 py-20 md:px-8 px-4">
       <div className="w-full mx-auto">
         <div className="flex justify-between items-center mb-24">
           <h2 className="text-5xl mb-8 md:text-6xl">FAQ</h2>
