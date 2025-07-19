@@ -1,17 +1,10 @@
-import { useRef, useEffect, useState, useLayoutEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import features from "../data/features";
 
 function FadingDescription({ text, progress }) {
   const pRef = useRef(null);
-  const [containerHeight, setContainerHeight] = useState('auto');
 
   const descriptionOpacity = Math.max(0, 1 - progress * 2);
-
-  useLayoutEffect(() => {
-    if (pRef.current) {
-      setContainerHeight(pRef.current.offsetHeight);
-    }
-  }, [text]); 
 
   return (
     <div className="overflow-hidden flex items-start" style={{ height: "150px" }}>
@@ -25,7 +18,6 @@ function FadingDescription({ text, progress }) {
     </div>
   );
 }
-
 
 function FeaturesSection() {
   const sectionRef = useRef(null);
