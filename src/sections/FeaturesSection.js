@@ -1,191 +1,231 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import features from "../data/features";
 
+function FadingDescription({ text, progress }) {
+  const pRef = useRef(null);
+  const [containerHeight, setContainerHeight] = useState('auto');
+
+  const descriptionOpacity = Math.max(0, 1 - progress * 2);
+
+  useLayoutEffect(() => {
+    if (pRef.current) {
+      setContainerHeight(pRef.current.offsetHeight);
+    }
+  }, [text]); 
+
+  return (
+    <div className="overflow-hidden flex items-start" style={{ height: "150px" }}>
+      <p
+        ref={pRef}
+        className="text-sm md:text-lg text-gray-700"
+        style={{ opacity: descriptionOpacity }}
+      >
+        {text}
+      </p>
+    </div>
+  );
+}
+
+
 function FeaturesSection() {
-	const sectionRef = useRef(null);
-	const [scroll, setScroll] = useState(0);
+  const sectionRef = useRef(null);
+  const stickyRef = useRef(null);
+  const [scroll, setScroll] = useState(0);
 
-	const allCards = [
-		...features,
-		{ title: "GET STARTED", isFinal: true }
-	];
+  const startScrollBuffer = 150;
+  const endScrollBuffer = 150;
+  const scrollDurationMultiplier = 2; 
 
-	const minWidth = 0.15; 
-	const maxWidth = 0.3;  
-	const collapseStep = window.innerWidth * (maxWidth - minWidth); 
+  const allCards = [
+    ...features,
+    { title: "GET STARTED", heading: "Final Card", isFinal: true },
+  ];
 
-	const totalCollapse = (allCards.length) * collapseStep;
-	const [sectionHeight, setSectionHeight] = useState(totalCollapse + window.innerHeight);
+  const minWidth = 0.15;
+  const maxWidth = 0.3;
 
-	useEffect(() => {
-		const handleResize = () => {
-			const newCollapseStep = window.innerWidth * (maxWidth - minWidth);
-			setSectionHeight((allCards.length - 1) * newCollapseStep + window.innerHeight);
-		};
-		window.addEventListener("resize", handleResize);
-		handleResize();
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+  const [collapseStep, setCollapseStep] = useState(0);
+  const [totalCollapse, setTotalCollapse] = useState(0);
+  const [sectionHeight, setSectionHeight] = useState(window.innerHeight);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			if (!sectionRef.current) return;
-			const section = sectionRef.current;
-			const start = section.offsetTop;
-			const y = window.scrollY;
+  useEffect(() => {
+    const updateSizes = () => {
+      const newCollapseStep =
+        window.innerWidth * (maxWidth - minWidth) * scrollDurationMultiplier;
+      const newTotalCollapse = (allCards.length - 1) * newCollapseStep;
+      setCollapseStep(newCollapseStep);
+      setTotalCollapse(newTotalCollapse);
+      setSectionHeight(
+        newTotalCollapse + window.innerHeight + startScrollBuffer + endScrollBuffer
+      );
+    };
 
-			let localScroll = 0;
-			if (y < start) {
-				localScroll = 0;
-			} else if (y > start + totalCollapse) {
-				localScroll = totalCollapse;
-			} else {
-				localScroll = y - start;
-			}
-			setScroll(localScroll);
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    return () => window.removeEventListener("resize", updateSizes);
+  }, [allCards.length]);
 
-			if (y > start + totalCollapse && localScroll < totalCollapse) {
-				window.scrollTo({ top: start + totalCollapse, behavior: "auto" });
-			}
-		};
-		window.addEventListener("scroll", handleScroll, { passive: false });
-		window.addEventListener("resize", handleScroll);
-		handleScroll();
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-			window.removeEventListener("resize", handleScroll);
-		};
-	}, [sectionHeight, totalCollapse]);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!stickyRef.current || !sectionRef.current) return;
+      const stickyStart = sectionRef.current.offsetTop;
+      const y = window.scrollY;
+      const animationStartPoint = stickyStart + startScrollBuffer;
 
-	const getCardWidth = (i) => {
-		const cardStart = i * collapseStep;
-		const cardEnd = (i + 1) * collapseStep;
-		if (scroll < cardStart) {
-			return maxWidth;
-		} else if (scroll > cardEnd) {
-			return minWidth;
-		} else {
-			const progress = (scroll - cardStart) / collapseStep;
-			return maxWidth - (maxWidth - minWidth) * progress;
-		}
-	};
+      let localScroll = 0;
+      if (y < animationStartPoint) {
+        localScroll = 0;
+      } else if (y > animationStartPoint + totalCollapse) {
+        localScroll = totalCollapse;
+      } else {
+        localScroll = y - animationStartPoint;
+      }
+      setScroll(localScroll);
+    };
 
-	const mobile = typeof window !== "undefined" && window.innerWidth < 768;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [sectionHeight, totalCollapse]);
 
-	return (
-		<section
-			ref={sectionRef}
-			className="relative w-full bg-[#DDDDDD] pt-20 md:pt-40"
-			style={{
-				height: sectionHeight,
-			}}
-		>
-			<div className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden">
-				<h2 className="text-2xl md:text-5xl text-gray-900 mb-12 md:mb-28 px-4">
-					BY DEVELOPERS FOR DEVELOPERS AND
-					<br />FOCUSED ON THE WORKFLOW
-				</h2>
-				<div
-					className={`flex ${mobile ? "flex-col" : "flex-row"} items-stretch justify-start gap-0`}
-					style={{
-						height: "100%",
-						width: "100%",
-					}}
-				>
-					{allCards.map((f, i) => {
-						let cardStyle;
-						if (mobile) {
-							cardStyle = {
-								width: "100%",
-								minWidth: "100%",
-								maxWidth: "100%",
-								height: 370,
-								marginBottom: 16,
-							};
-						} else {
-							const width = getCardWidth(i);
-							const progress = Math.min(1, Math.max(0, (scroll - i * collapseStep) / collapseStep));
-							cardStyle = {
-								width: `${width * 100}vw`,
-								minWidth: `${minWidth * 100}vw`,
-								maxWidth: `${maxWidth * 100}vw`,
-								height: "100vh", 
-								transition: "width 0.5s cubic-bezier(.4,0,.2,1)",
-								flex: "0 0 auto",
-								marginRight: 0,
-								background: f.isFinal ? "#D2F944" : undefined,
-								overflow: "hidden",
-								alignItems: "center",
-								justifyContent: "center",
-								position: "relative",
-							};
-							var textStyle = {
-								opacity: 1 - progress,
-								transform: `translateX(${progress * 40}px)`,
-								transition: "opacity 0.3s, transform 0.3s",
-								position: "absolute",
-								left: 0,
-								right: 0,
-								top: 0,
-								bottom: 0,
-								display: "flex",
-								flexDirection: "column",
-								justifyContent: "center",
-								alignItems: "center",
-								pointerEvents: progress === 1 ? "none" : "auto",
-							};
-						}
+  const getCardWidth = (i) => {
+    const cardStart = i * collapseStep;
+    const cardEnd = (i + 1) * collapseStep;
+    if (scroll < cardStart) return maxWidth;
+    if (scroll > cardEnd) return minWidth;
+    const progress = (scroll - cardStart) / collapseStep;
+    return maxWidth - (maxWidth - minWidth) * progress;
+  };
 
-						return (
-							<div
-								key={i}
-								className={`border flex flex-col transition-all duration-500 ${f.isFinal ? "" : "bg-[#DDDDDD] border-gray-300"}`}
-								style={cardStyle}
-							>
-								<div className="p-4 flex flex-col h-full items-center justify-center w-full" style={!mobile ? {position: "relative", height: "100%"} : {}}>
-									{f.isFinal ? (
-										<>
-											<div className="text-2xl font-bold mb-4 text-gray-900 text-center">
-												{f.title}
-											</div>
-											<button
-												className="rounded px-6 py-3 font-semibold text-base transition-colors border border-gray-900"
-												style={{ backgroundColor: "#191919", color: "#D2F944" }}
-											>
-												START NOW →
-											</button>
-										</>
-									) : (
-										<div className="flex flex-col h-full items-center justify-between w-full p-2 gap-4">
-											<div style={!mobile ? textStyle : {}}>
-												<p className="text-sm mb-4 text-center w-full">{f.title}</p>
-												{f.svg && (
-													<div className="flex justify-center w-full">
-														<div
-															className="w-24 flex items-center justify-center"
-															dangerouslySetInnerHTML={{ __html: f.svg }}
-														/>
-													</div>
-												)}
-												<div className="flex items-center justify-between mb-4 w-full gap-7">
-													<div>
-														<h2 className="text-3xl whitespace-pre-line mb-4 text-left w-full">{f.heading}</h2>
-													</div>
-												</div>
-												<div>
-													<div className="text-sm md:text-lg text-gray-700 mt-auto text-left w-full">{f.desc}</div>
-												</div>
-											</div>
-										</div>
-									)}
-								</div>
-							</div>
-						);
-					})}
-				</div>
-			</div>
-		</section>
-	);
+  const mobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  return (
+    <>
+      <div className="h-[100px] bg-[#DDDDDD]"></div>
+      <section
+        ref={sectionRef}
+        className="relative w-full bg-[#DDDDDD]"
+        style={{ height: sectionHeight }}
+      >
+        <div
+          ref={stickyRef}
+          className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden"
+        >
+          <h2 className="text-2xl md:text-5xl text-gray-900 mb-12 md:mb-28 px-4">
+            BY DEVELOPERS FOR DEVELOPERS AND
+            <br />
+            FOCUSED ON THE WORKFLOW
+          </h2>
+          <div
+            className={`flex items-stretch justify-start gap-0 ${
+              mobile ? "flex-col" : "flex-row"
+            }`}
+            style={{ height: "78%", width: "100%" }}
+          >
+            {allCards.map((f, i) => {
+              let cardStyle;
+              if (mobile) {
+                cardStyle = {
+                  width: "100%",
+                  height: 370,
+                  marginBottom: 16,
+                };
+              } else {
+                const width = getCardWidth(i);
+                cardStyle = {
+                  width: `${width * 100}vw`,
+                  minWidth: `${minWidth * 100}vw`,
+                  maxWidth: `${maxWidth * 100}vw`,
+                  height: "100%",
+                  transition: "width 0.5s cubic-bezier(.4,0,.2,1)",
+                  flex: "0 0 auto",
+                  background: f.isFinal ? "#D2F944" : "#DDDDDD",
+                  overflow: "hidden",
+                  position: "relative",				                 
+                  borderRadius: "5px",
+                };
+              }
+
+              const progress = mobile
+                ? 0
+                : Math.min(
+                    1,
+                    Math.max(0, (scroll - i * collapseStep) / collapseStep)
+                  );
+
+              return (
+                <div
+                  key={i}
+                  className={`border flex flex-col transition-all duration-500 ${
+                    f.isFinal ? "" : "border-gray-300"
+                  }`}
+                  style={cardStyle}
+                >
+                  {mobile ? (
+                    <div className="flex flex-col h-full w-full justify-between">
+                      <div className="flex flex-row w-full items-start justify-between p-4 pb-0">
+                        <div>
+                          <p className="text-xs mb-2">{f.title}</p>
+                          <h2 className="text-2xl md:text-3xl font-mono mb-0">{f.heading}</h2>
+                        </div>
+                        {f.svg && (
+                          <div className="w-24 flex items-center justify-center">
+                            <span dangerouslySetInnerHTML={{ __html: f.svg }} />
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-full p-4 pt-0">
+                        <p className="text-sm md:text-lg text-gray-700">{f.desc}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="relative h-full w-full">                      
+                      <div
+                        style={{
+                          visibility: progress < 0.5 ? "visible" : "hidden",
+                        }}
+                        className="absolute inset-0 p-4 flex flex-col justify-between h-full"
+                      >
+                        <div className="flex justify-between items-start gap-8">
+                          <div>
+                            <p className="text-xs mb-2">{f.title}</p>
+                            <h2 className="text-2xl md:text-3xl font-mono mb-0">{f.heading}</h2>
+                          </div>
+                          {f.svg && (
+                            <div className="w-24 flex items-center justify-center">
+                              <span dangerouslySetInnerHTML={{ __html: f.svg }} />
+                            </div>
+                          )}
+                        </div>
+                        <FadingDescription text={f.desc} progress={progress} />
+                      </div>
+                      <div
+                        style={{
+                          visibility: progress >= 0.5 ? "visible" : "hidden",
+                        }}
+                        className="absolute inset-0 p-4 flex flex-col justify-between h-full items-center"
+                      >
+                        <p className="text-xs">{f.title}</p>
+                        {f.svg && (
+                          <div className="flex items-center justify-center pb-8">
+                            <span dangerouslySetInnerHTML={{ __html: f.svg }} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default FeaturesSection;
