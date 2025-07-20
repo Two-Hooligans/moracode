@@ -3,14 +3,13 @@ import features from "../data/features";
 
 function FadingDescription({ text, progress }) {
   const pRef = useRef(null);
-
   const descriptionOpacity = Math.max(0, 1 - progress * 2);
 
   return (
-    <div className="overflow-hidden flex items-start" style={{ height: "150px" }}>
+    <div className="overflow-hidden flex items-start" style={{ height: "110px" }}>
       <p
         ref={pRef}
-        className="text-sm md:text-lg text-gray-700"
+        className="text-md md:text-md text-gray-700"
         style={{ opacity: descriptionOpacity }}
       >
         {text}
@@ -23,10 +22,11 @@ function FeaturesSection() {
   const sectionRef = useRef(null);
   const stickyRef = useRef(null);
   const [scroll, setScroll] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(0); 
 
   const startScrollBuffer = 150;
   const endScrollBuffer = 150;
-  const scrollDurationMultiplier = 2; 
+  const scrollDurationMultiplier = 2;
 
   const allCards = [
     ...features,
@@ -39,6 +39,20 @@ function FeaturesSection() {
   const [collapseStep, setCollapseStep] = useState(0);
   const [totalCollapse, setTotalCollapse] = useState(0);
   const [sectionHeight, setSectionHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const calculateHeaderHeight = () => {
+      const headerElement = document.querySelector("header");
+      if (headerElement) {
+        setHeaderHeight(headerElement.offsetHeight);
+      }
+    };
+
+    calculateHeaderHeight();
+    window.addEventListener("resize", calculateHeaderHeight);
+
+    return () => window.removeEventListener("resize", calculateHeaderHeight);
+  }, []);
 
   useEffect(() => {
     const updateSizes = () => {
@@ -105,18 +119,20 @@ function FeaturesSection() {
       >
         <div
           ref={stickyRef}
-          className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden pt-20"
+          className="sticky left-0 w-full bg-[#DDDDDD] z-10 overflow-hidden"
+          style={{
+            height: `calc(100vh - ${headerHeight}px)`, 
+            top: `${headerHeight}px`, 
+          }}
         >
-          <h2 className="text-2xl md:text-5xl text-gray-900 mb-12 md:mb-28 px-4">
-            BY DEVELOPERS FOR DEVELOPERS AND
-            <br />
-            FOCUSED ON THE WORKFLOW
+          <h2 className="text-1xl md:text-[42px] text-gray-900 mb-12 md:mb-28 px-4 max-w-4xl">
+            BY DEVELOPERS FOR DEVELOPERS AND FOCUSED ON THE WORKFLOW
           </h2>
           <div
             className={`flex items-stretch justify-start gap-0 ${
               mobile ? "flex-col" : "flex-row"
             }`}
-            style={{ height: "76%", width: "100%" }}
+            style={{ height: "66.7vh", width: "100%" }}
           >
             {allCards.map((f, i) => {
               let cardStyle;
@@ -137,7 +153,7 @@ function FeaturesSection() {
                   flex: "0 0 auto",
                   background: f.isFinal ? "#D2F944" : "#DDDDDD",
                   overflow: "hidden",
-                  position: "relative",				                 
+                  position: "relative",
                   borderRadius: "5px",
                 };
               }
@@ -175,18 +191,18 @@ function FeaturesSection() {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative h-full w-full">                      
+                    <div className="relative h-full w-full">
                       <div
                         style={{
                           visibility: progress < 0.5 ? "visible" : "hidden",
                         }}
-                        className="absolute inset-0 p-4 flex flex-col justify-between h-full"
+                        className="absolute inset-0 p-5 flex flex-col justify-between h-full"
                       >
-                        <div className="flex justify-between items-start gap-8">
-                          <div>
-                            <p className="text-xs mb-2">{f.title}</p>
-                            <h2 className="text-2xl md:text-3xl font-mono mb-0">{f.heading}</h2>
-                          </div>
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="max-w-xs">
+                            <p className="text-md mb-2">{f.title}</p>
+                            <h2 className="text-[28px] md:text-[28px] mb-0">{f.heading}</h2>
+                          </div>  
                           {f.svg && (
                             <div className="w-24 flex items-center justify-center">
                               <span dangerouslySetInnerHTML={{ __html: f.svg }} />
@@ -199,9 +215,9 @@ function FeaturesSection() {
                         style={{
                           visibility: progress >= 0.5 ? "visible" : "hidden",
                         }}
-                        className="absolute inset-0 p-4 flex flex-col justify-between h-full items-center"
+                        className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center"
                       >
-                        <p className="text-xs">{f.title}</p>
+                        <p className="text-md">{f.title}</p>
                         {f.svg && (
                           <div className="flex items-center justify-center pb-8">
                             <span dangerouslySetInnerHTML={{ __html: f.svg }} />
