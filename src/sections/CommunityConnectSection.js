@@ -5,15 +5,27 @@ export default function CommunityConnectSection() {
   const sectionRef = useRef(null);
   const stickyRef = useRef(null);
   const [scroll, setScroll] = useState(0);
-
+  const [headerHeight, setHeaderHeight] = useState(0); 
   const minBoxHeight = 100;
   const maxBoxHeight = 350;
   const scrollPerItem = 450;
 
-  // const isMobile = window.innerWidth < 768;
-
   const [totalAnimationHeight, setTotalAnimationHeight] = useState(0);
   const [sectionHeight, setSectionHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const calculateHeaderHeight = () => {
+      const headerElement = document.querySelector("header");
+      if (headerElement) {
+        setHeaderHeight(headerElement.offsetHeight);
+      }
+    };
+
+    calculateHeaderHeight();
+    window.addEventListener("resize", calculateHeaderHeight);
+
+    return () => window.removeEventListener("resize", calculateHeaderHeight);
+  }, []);
 
   useEffect(() => {
     const totalHeight = scrollPerItem * communityConnectItems.length;
@@ -25,17 +37,17 @@ export default function CommunityConnectSection() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;  
+      if (!sectionRef.current) return;
 
       const sectionTop = sectionRef.current.offsetTop;
       const raw = window.scrollY - sectionTop;
-      const clamped = Math.max(0, Math.min(raw, totalAnimationHeight));      
+      const clamped = Math.max(0, Math.min(raw, totalAnimationHeight));
       setScroll(clamped);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
-    handleScroll(); 
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
@@ -46,11 +58,12 @@ export default function CommunityConnectSection() {
     <section
       ref={sectionRef}
       className="relative w-full bg-white"
-      style={{ height:  sectionHeight  }}
+      style={{ height: sectionHeight }}
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 left-0 w-full z-10 overflow-hidden"
+        className="sticky left-0 w-full z-10 overflow-hidden"
+        style={{ top: `${headerHeight}px` }}
       >
         <div className="flex flex-col justify-start h-full mx-auto pt-4 w-full">
           {communityConnectItems.map((item, i) => {
@@ -107,8 +120,7 @@ export default function CommunityConnectSection() {
                     height: `${boxHeight}px`,
                     transition: "height 0.1s linear",
                   }}
-                >
-                </div>
+                ></div>
               </div>
             );
           })}
