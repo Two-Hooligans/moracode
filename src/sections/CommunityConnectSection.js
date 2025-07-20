@@ -141,7 +141,7 @@ export default function CommunityConnectSection() {
                   className="bg-gray-100 rounded-xl flex items-center justify-center w-full"
                   style={{
                     height: `${boxHeight}px`,
-                    transition: "height 0.1s linear",
+                    transition: "height 0.5s cubic-bezier(.4,0,.2,1)", 
                   }}
                 ></div>
               </div>
