@@ -8,7 +8,7 @@ export default function FaqSection() {
     <section className="bg-[#DDDDDD] border border-gray-400 py-20 md:px-8 px-4">
       <div className="w-full mx-auto">
         <div className="flex justify-between items-center mb-24">
-          <h2 className="text-5xl mb-8 md:text-6xl">FAQ</h2>
+          <h2 className="mb-8 text-[42px]">FAQ</h2>
           <svg
             width="218"
             height="104"
