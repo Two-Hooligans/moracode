@@ -102,7 +102,7 @@ export default function FaqSection() {
           {faqs.map((faq, i) => (
             <div key={i} className="border-b border-gray-300">
               <div className="flex items-start justify-between py-4">
-                <div className="text-base md:text-2xl text-lg">
+                <div className="md:text-2xl text-lg uppercase">
                   {faq.question}
                 </div>
                 <button
@@ -127,7 +127,7 @@ export default function FaqSection() {
               </div>
               {open === i && (
                 <div
-                  className="prose prose-sm text-gray-800 pb-6 animate-fade-in md:w-1/4"
+                  className="prose prose-sm text-gray-800 pb-6 animate-fade-in md:w-2/4"
                   dangerouslySetInnerHTML={{ __html: faq.answer }}
                 />
               )}

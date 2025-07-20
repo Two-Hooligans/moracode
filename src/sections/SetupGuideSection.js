@@ -8,7 +8,7 @@ export default function SetupGuideSection() {
           START EXPLORING THE PRODUCT AND VALIDATE ITS PERFORMANCE, SECURITY, 
           AND RELIABILITY FIRSTHAND
         </h2>
-        <div className="text-2xl md:text-3xl mb-8">SET UP GUIDE:</div>
+        <div className="text-[32px] md:text-[32px] mb-8">SET UP GUIDE:</div>
         <div className="flex flex-col md:flex-row gap-12 md:gap-4">
           {steps.map((step, idx) => (
             <div
@@ -29,7 +29,7 @@ export default function SetupGuideSection() {
               )}
               <div className={`flex gap-8 ${idx === 0 ? "items-center" : "items-start"  }`}>
                 <span
-                  className={`text-8xl font-normal leading-[0.9] ${
+                  className={`text-[80px] font-normal leading-[0.9] ${
                     idx === 0 ? "" : "text-gray-400"
                   }`}
                 >
@@ -37,7 +37,7 @@ export default function SetupGuideSection() {
                 </span>
                 <div>
                   <div
-                    className={`text-4xl font-normal ${
+                    className={`text-[28px] font-normal ${
                       idx === 0 ? "" : "text-gray-400"
                     }`}
                   >
@@ -45,7 +45,7 @@ export default function SetupGuideSection() {
                   </div>
                 </div>
               </div>
-              <div className="mt-6 text-xl text-gray-700 max-w-md ">{step.content}</div>
+              <div className="mt-6 text-md text-gray-700 max-w-sm ">{step.content}</div>
             </div>
           ))}
         </div>
