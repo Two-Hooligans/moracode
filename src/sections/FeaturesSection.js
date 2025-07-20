@@ -105,7 +105,7 @@ function FeaturesSection() {
       >
         <div
           ref={stickyRef}
-          className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden"
+          className="sticky top-0 left-0 w-full h-[100vh] bg-[#DDDDDD] z-10 overflow-hidden pt-20"
         >
           <h2 className="text-2xl md:text-5xl text-gray-900 mb-12 md:mb-28 px-4">
             BY DEVELOPERS FOR DEVELOPERS AND
@@ -116,7 +116,7 @@ function FeaturesSection() {
             className={`flex items-stretch justify-start gap-0 ${
               mobile ? "flex-col" : "flex-row"
             }`}
-            style={{ height: "78%", width: "100%" }}
+            style={{ height: "76%", width: "100%" }}
           >
             {allCards.map((f, i) => {
               let cardStyle;
