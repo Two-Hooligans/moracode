@@ -5,10 +5,10 @@ export default function FaqSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-[#DDDDDD] border border-gray-400 py-20 md:px-8 px-4">
+    <section className="bg-[#DDDDDD] border border-gray-400 py-20 md:px-4 px-4" id="faq">
       <div className="w-full mx-auto">
         <div className="flex justify-between items-center mb-24">
-          <h2 className="mb-8 text-[42px]">FAQ</h2>
+          <h2 className="mb-8 text-[42px] text-[#252525]">FAQ</h2>
           <svg
             width="218"
             height="104"
@@ -102,15 +102,15 @@ export default function FaqSection() {
           {faqs.map((faq, i) => (
             <div key={i} className="border-b border-gray-300">
               <div className="flex items-start justify-between py-4">
-                <div className="md:text-2xl text-lg uppercase">
+                <div className="md:text-2xl text-lg uppercase text-[#252525]">
                   {faq.question}
                 </div>
                 <button
                   className={`ml-4 flex items-center justify-center rounded-full border transition-colors duration-200
                     ${
                       open === i
-                        ? "bg-black border-black text-[#D2F944]"
-                        : "bg-[#D2F944] border-[#D2F944] text-black"
+                        ? "bg-[#252525] text-[#D2F944]"
+                        : "bg-[#D2F944] border-[#252525] text-[#252525]"
                     }
                   `}
                   style={{
@@ -127,7 +127,7 @@ export default function FaqSection() {
               </div>
               {open === i && (
                 <div
-                  className="prose prose-sm text-gray-800 pb-6 animate-fade-in md:w-2/4"
+                  className="prose prose-sm text-[#252525] pb-6 md:w-2/4"
                   dangerouslySetInnerHTML={{ __html: faq.answer }}
                 />
               )}

@@ -80,11 +80,12 @@ export default function CommunityConnectSection() {
     <section
       ref={sectionRef}
       className="relative w-full bg-white"
+      id="community"
       style={{ height: `${sectionHeight}px` }}
     >
-      <div
+      <section
         ref={stickyRef}
-        className="sticky left-0 w-full z-10 overflow-hidden"
+        className="sticky left-0 w-full z-10 overflow-hidden bg-white"
         style={{ top: `${headerHeight}px` }}
       >
         <div className="flex flex-col justify-start h-full mx-auto w-full">
@@ -97,13 +98,12 @@ export default function CommunityConnectSection() {
             >
               <div className="flex flex-col w-full md:w-2/5 py-4 justify-center">
                 <div className="text-to-fade flex-grow">
-                  <div className="text-[32px] mb-1">{item.title}</div>
-                  <div className="text-md text-gray-600">{item.desc}</div>
+                  <div className="text-[32px] mb-1 text-[#252525]">{item.title}</div>
+                  <div className="text-md text-[#252525]">{item.desc}</div>
                 </div>
                 <div>
                   <button
-                    className="rounded-md px-[26px] py-[13px] text-base border border-[#7e7e7e] button-fill-effect group"
-                    style={{ backgroundColor: "#D2F944", color: "#191919" }}
+                    className="rounded-md px-[26px] py-[13px] text-[#252525] bg-[#D2F944] border border-[#7e7e7e] button-fill-effect group"
                   >
                     <span className="flex items-center gap-[10px]">{item.button}
                         <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ fill: "#252525" }}><path d="M14 6c0 .2-.08.38-.23.53l-5 5.25c-.15.15-.31.22-.49.22-.18 0-.34-.07-.47-.2a.64.64 0 0 1-.19-.48c0-.1.01-.19.04-.27.03-.09.08-.16.14-.22l1.69-1.8L12.48 6.16l.15.39-2.43.16H.66a.9.9 0 0 1-.48-.13.85.85 0 0 1-.18-.54c0-.2.06-.37.18-.5a.6.6 0 0 1 .48-.14h9.54l2.43.16-.15.39-3-2.85-1.69-1.8c-.06-.06-.11-.13-.14-.22a.49.49 0 0 1-.04-.27c0-.2.06-.36.19-.48.13-.13.29-.2.47-.2.09 0 .18.02.26.05.09.04.17.1.26.19l5 5.24c.15.15.23.33.23.53Z"/></svg>
@@ -115,7 +115,7 @@ export default function CommunityConnectSection() {
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </section>
   );
 }

@@ -1,22 +1,18 @@
 function HeroSection() {
   return (
-    <section className="w-full pt-16 md:px-8 px-4 pb-32 md:pb-80" style={{ backgroundColor: '#DDDDDD', position: 'relative', zIndex: 10 }}>
+    <section className="w-full pt-16 md:px-4 px-4 pb-32 md:pb-80 relative bg-[#DDDDDD]" style={{ zIndex: 10 }}>
       <div className="mx-auto flex flex-col gap-8 relative">
         <div>
-          <h1 className="text-5xl md:text-7xl text-gray-900 mb-8 leading-tight">
+          <h1 className="text-5xl md:text-7xl text-[#252525] mb-8 leading-tight tracking-normal">
             MORACODE:<br />
             SECURE AI CODING ASSISTANT
           </h1>
-          <p className="text-[21px] md:text-[21px] text-gray-700 mb-8 max-w-[500px]">
+          <p className="text-[21px] md:text-[21px] text-[#252525] mb-8 max-w-[500px] tracking-normal">
             Your code, your AI, your rules—Moracode offers secure, intelligent and private coding assistance with no external data flow.
           </p>
           <div className="flex gap-4">
             <button
-              className="rounded-md px-[26px] py-[13px] text-base border border-[#7e7e7e] button-fill-effect group"
-              style={{
-                backgroundColor: "#D2F944",
-                color: "#191919",
-              }}
+              className="rounded-md bg-[#D2F944] px-[26px] py-[13px] text-[#252525] border border-[#7e7e7e] button-fill-effect group"           
               onClick={() => {
                 window.location.href = "https://panel.moracode-dev.com/login";
               }}
@@ -43,12 +39,11 @@ function HeroSection() {
               </span>
             </button>
             <button
-              className="rounded-md px-[26px] py-[13px] text-base border border border-[#7e7e7e] button-fill-effect"
-              style={{
-                backgroundColor: 'transparent',
-                color: '#191919',
-              }}
+              className="rounded-md bg-transparent px-[26px] py-[13px] text-[#252525] border border border-[#7e7e7e] button-fill-effect"
               type="button"
+                onClick={() => {
+              window.location.href = "#community";
+              }}
             >
               <span className="flex items-center gap-[10px]">COMMUNITY
                                 <svg
@@ -73,16 +68,15 @@ function HeroSection() {
         <div className="w-full flex justify-center relative z-20 mt-4 md:mt-8 h-full">
           <video
             src="/assets/videos/moracode_working.mp4"
-            className="rounded-lg overflow-hidden border border-gray-300 shadow-md object-cover absolute w-[100%] md:w-[70%]"
+            className="rounded-lg overflow-hidden shadow-md object-cover absolute w-[100%] md:w-[70%]"
             style={{              
-              height: 'auto',
-              boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+              height: 'auto',              
             }}
             autoPlay
             loop
             muted
             playsInline
-            controls={true}
+            controls={false}
             draggable="false"
           />
         </div>

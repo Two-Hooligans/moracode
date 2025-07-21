@@ -6,10 +6,10 @@ function FadingDescription({ text, progress }) {
   const descriptionOpacity = Math.max(0, 1 - progress * 2);
 
   return (
-    <div className="overflow-hidden flex items-start" style={{ height: "110px" }}>
+    <div className="overflow-hidden flex items-start" style={{ height: "110px", width: "350px" }}>
       <p
         ref={pRef}
-        className="text-md md:text-md text-gray-700"
+        className="text-md md:text-md text-[#252525] tracking-normal"
         style={{ opacity: descriptionOpacity }}
       >
         {text}
@@ -33,7 +33,7 @@ function FeaturesSection() {
     { title: "GET STARTED", heading: "Final Card", isFinal: true },
   ];
 
-  const minWidth = 0.15;
+  const minWidth = 0.1  ;
   const maxWidth = 0.3;
 
   const [collapseStep, setCollapseStep] = useState(0);
@@ -111,13 +111,13 @@ function FeaturesSection() {
 
   return (
     <>
-      <div className="h-[100px] bg-[#DDDDDD]"></div>
+      <section className="h-[150px] bg-[#DDDDDD]" id="features"></section>
       <section
         ref={sectionRef}
         className="relative w-full bg-[#DDDDDD]"
         style={{ height: sectionHeight }}
       >
-        <div
+        <section
           ref={stickyRef}
           className="sticky left-0 w-full bg-[#DDDDDD] z-10 overflow-hidden"
           style={{
@@ -125,7 +125,7 @@ function FeaturesSection() {
             top: `${headerHeight}px`, 
           }}
         >
-          <h2 className="text-1xl md:text-[42px] text-gray-900 mb-12 md:mb-28 px-4 max-w-4xl">
+          <h2 className="text-1xl md:text-[42px] text-[#252525] mb-12 md:mb-28 px-4 max-w-4xl tracking-normal">
             BY DEVELOPERS FOR DEVELOPERS AND FOCUSED ON THE WORKFLOW
           </h2>
           <div
@@ -143,11 +143,10 @@ function FeaturesSection() {
                   marginBottom: 16,
                 };
               } else {
-                const width = getCardWidth(i);
+                const width = f.isFinal ? 0.5 : getCardWidth(i); 
                 cardStyle = {
                   width: `${width * 100}vw`,
-                  minWidth: `${minWidth * 100}vw`,
-                  maxWidth: `${maxWidth * 100}vw`,
+                  minWidth: `${minWidth * 100}vw`,                  
                   height: "100%",
                   transition: "width 0.5s cubic-bezier(.4,0,.2,1)",
                   flex: "0 0 auto",
@@ -177,8 +176,8 @@ function FeaturesSection() {
                     <div className="flex flex-col h-full w-full justify-between">
                       <div className="flex flex-row w-full items-start justify-between p-4 pb-0">
                         <div>
-                          <p className="text-xs mb-2">{f.title}</p>
-                          <h2 className="text-2xl md:text-3xl font-mono mb-0">{f.heading}</h2>
+                          <p className="text-xs mb-2 text-[#252525] tracking-normal">{f.title}</p>
+                          <h2 className="text-2xl md:text-3xl font-mono mb-0 text-[#252525] tracking-normal">{f.heading}</h2>
                         </div>
                         {f.svg && (
                           <div className="w-24 flex items-center justify-center">
@@ -187,7 +186,7 @@ function FeaturesSection() {
                         )}
                       </div>
                       <div className="w-full p-4 pt-0">
-                        <p className="text-sm md:text-lg text-gray-700">{f.desc}</p>
+                        <p className="text-sm md:text-lg text-[#252525] tracking-normal">{f.desc}</p>
                       </div>
                     </div>
                   ) : (
@@ -200,8 +199,8 @@ function FeaturesSection() {
                       >
                         <div className="flex justify-between items-start gap-4">
                           <div className="max-w-xs">
-                            <p className="text-md mb-2">{f.title}</p>
-                            <h2 className="text-[28px] md:text-[28px] mb-0">{f.heading}</h2>
+                            <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
+                            <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
                           </div>  
                           {f.svg && (
                             <div className="w-24 flex items-center justify-center">
@@ -230,7 +229,7 @@ function FeaturesSection() {
               );
             })}
           </div>
-        </div>
+        </section>
       </section>
     </>
   );

@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#262626] border-t border-gray-400 py-6 px-4">
-      <div className="max-w-7xl mx-auto md:flex items-center justify-between flex-column">
+    <footer className="bg-[#252525] py-12 px-4">
+      <div className="mx-auto md:flex items-center justify-between flex-column">
         {/* Left */}
         <div className="font-bold text-white text-lg font-sans mb-4 md:mb-0">moracode.io</div>
         {/* Center */}

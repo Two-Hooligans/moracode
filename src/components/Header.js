@@ -8,7 +8,7 @@ const NAV_ITEMS = [
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [headerBgColor, setHeaderBgColor] = useState("#DDDDDD"); // Default background color
+  const [headerBgColor, setHeaderBgColor] = useState("#DDDDDD");
 
   useEffect(() => {
     const getEffectiveBackground = (section) => {
@@ -26,7 +26,7 @@ function Header() {
     };
 
     const getTopSection = () => {
-      const allSections = document.querySelectorAll("section");
+      const allSections = document.querySelectorAll("section"); 
       let topSection = null;
       let minDist = window.innerHeight;
       for (let s of allSections) {
@@ -38,6 +38,7 @@ function Header() {
           }
         }
       }
+      
       return topSection;
     };
 
@@ -62,7 +63,7 @@ function Header() {
 
   return (
     <header
-      className="w-full flex items-center justify-between px-8 py-3 sticky top-0 z-50"
+      className="w-full flex items-center justify-between px-4 py-3 sticky top-0 z-50"
       style={{
         backgroundColor: headerBgColor,
         transition: "background-color 0.3s ease",
@@ -70,7 +71,7 @@ function Header() {
     >
       {/* Logo */}
       <div className="flex items-center">
-        <span className="text-lg font-semibold text-gray-900 tracking-wide">
+        <span className="text-lg font-semibold text-[#252525] tracking-wide">
           moracode.io
         </span>
       </div>
@@ -81,7 +82,7 @@ function Header() {
           <a
             key={item.label}
             href={item.href}
-            className="relative text-gray-900 text-base font-medium transition-colors group duration-500 hover:text-gray-700"
+            className="relative text-[#252525] font-medium transition-colors group duration-500 hover:text-gray-700"
           >
             <span className="opacity-0 group-hover:opacity-100 transition-opacity absolute -left-3 duration-500">{'{'}</span>
             <span className="transition-colors">{item.label}</span>
@@ -93,10 +94,9 @@ function Header() {
       {/* Desktop Login */}
       <div className="hidden md:block">
         <button
-          className="rounded-md px-[26px] py-[13px] text-base border border-[#7e7e7e] button-fill-effect"
+          className="rounded-md px-[26px] py-[13px] text-[#252525] border border-[#7e7e7e] button-fill-effect"
           style={{
-            backgroundColor: "#D2F944",
-            color: "#191919",            
+            backgroundColor: "#D2F944",                       
           }}
           onClick={() => {
             window.location.href = "https://panel.moracode-dev.com/login";
@@ -113,7 +113,7 @@ function Header() {
               xmlns="http://www.w3.org/2000/svg"
               className="transition-colors duration-300"
               style={{
-                fill: "#252525", // Default fill color
+                fill: "#252525", 
               }}
             >
               <path
@@ -126,16 +126,16 @@ function Header() {
 
       {/* Mobile Burger */}
       <button
-        className="md:hidden flex items-center justify-center rounded bg-[#D2F944] border border-gray-900 w-14 h-14"
+        className="md:hidden flex items-center justify-center rounded bg-[#D2F944] border border-[#7E7E7E] w-14 h-14"
         style={{ minWidth: 56, minHeight: 56 }}
         onClick={() => setMenuOpen((v) => !v)}
         aria-label="Open menu"
       >
         {/* Burger icon */}
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <rect x="5" y="7" width="14" height="2" rx="1" fill="#191919" />
-          <rect x="5" y="11" width="14" height="2" rx="1" fill="#191919" />
-          <rect x="5" y="15" width="14" height="2" rx="1" fill="#191919" />
+          <rect x="5" y="7" width="14" height="2" rx="1" fill="#252525" />
+          <rect x="5" y="11" width="14" height="2" rx="1" fill="#252525" />
+          <rect x="5" y="15" width="14" height="2" rx="1" fill="#252525" />
         </svg>
       </button>
 
@@ -149,8 +149,8 @@ function Header() {
               aria-label="Close menu"
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <line x1="6" y1="6" x2="18" y2="18" stroke="#191919" strokeWidth="2" strokeLinecap="round" />
-                <line x1="18" y1="6" x2="6" y2="18" stroke="#191919" strokeWidth="2" strokeLinecap="round" />
+                <line x1="6" y1="6" x2="18" y2="18" stroke="#252525" strokeWidth="2" strokeLinecap="round" />
+                <line x1="18" y1="6" x2="6" y2="18" stroke="#252525" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
             <nav className="flex flex-col gap-6">
@@ -169,8 +169,7 @@ function Header() {
               className="rounded-md px-[26px] py-[13px] text-base border border-[#7e7e7e] button-fill-effect"
               style={{
                 backgroundColor: "#D2F944",
-                color: "#191919",
-                borderColor: "#DDDDDD",
+                color: "#252525",                
               }}
               onClick={() => {
                 window.location.href = "https://panel.moracode-dev.com/login";
@@ -187,7 +186,7 @@ function Header() {
                   xmlns="http://www.w3.org/2000/svg"
                   className="transition-colors duration-300"
                   style={{
-                    fill: "#252525", // Default fill color
+                    fill: "#252525", 
                   }}
                 >
                   <path
