@@ -30,10 +30,10 @@ function FeaturesSection() {
 
   const allCards = [
     ...features,
-    { title: "GET STARTED", heading: "Final Card", isFinal: true },
+    { title: "GET STARTED", heading: "Every feature is practical, every detail respects your workflow.", isFinal: true },
   ];
 
-  const minWidth = 0.1  ;
+  const minWidth = 0.1;
   const maxWidth = 0.3;
 
   const [collapseStep, setCollapseStep] = useState(0);
@@ -167,9 +167,7 @@ function FeaturesSection() {
               return (
                 <div
                   key={i}
-                  className={`border flex flex-col transition-all duration-500 ${
-                    f.isFinal ? "" : "border-gray-300"
-                  }`}
+                  className={`border flex flex-col transition-all duration-500`}
                   style={cardStyle}
                 >
                   {mobile ? (
@@ -190,40 +188,78 @@ function FeaturesSection() {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative h-full w-full">
-                      <div
-                        style={{
-                          visibility: progress < 0.5 ? "visible" : "hidden",
-                        }}
-                        className="absolute inset-0 p-5 flex flex-col justify-between h-full"
-                      >
-                        <div className="flex justify-between items-start gap-4">
-                          <div className="max-w-xs">
-                            <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
-                            <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
-                          </div>  
+                    f.isFinal ? (
+                      <>
+                      <div className="bg-[#D2F944] flex flex-col w-full">
+                          <div className="p-5 flex items-start justify-start mb-20 max-w-xs">                       
+                            <h2 className="text-[112px] text-[#252525] leading-[1]">{f.title}</h2>                            
+                          </div>
+                          <div className="flex flex-col max-w-xs self-center">
+                            <p className="text-lg text-left text-[#252525] mt-2 mb-6">{f.heading}</p>                           
+                            <button
+                                className="self-left rounded-md bg-transparent px-[26px] py-[13px] text-[#252525] border border border-[#7e7e7e]"
+                                type="button"
+                                  onClick={() => {
+                                window.location.href = "#community";
+                                }}
+                              >
+                                <span className="flex items-center gap-[10px]">COMMUNITY
+                                                  <svg
+                                    width="14"
+                                    height="12"
+                                    viewBox="0 0 14 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="transition-colors duration-300"
+                                    style={{
+                                      fill: "#252525", 
+                                    }}
+                                  >
+                                    <path
+                                      d="M14 6C14 6.20053 13.9246 6.37731 13.7738 6.53034L8.76037 11.7784C8.61461 11.9261 8.45127 12 8.27033 12C8.08436 12 7.92856 11.934 7.80291 11.8021C7.67726 11.6755 7.61443 11.5145 7.61443 11.3193C7.61443 11.2243 7.62951 11.1346 7.65967 11.0501C7.68982 10.9604 7.73506 10.8839 7.79537 10.8206L9.48411 9.01583L12.4771 6.15831L12.6279 6.54617L10.2003 6.70449H0.663436C0.467421 6.70449 0.306588 6.63852 0.180937 6.5066C0.0603123 6.37467 0 6.2058 0 6C0 5.7942 0.0603123 5.62533 0.180937 5.4934C0.306588 5.36148 0.467421 5.29551 0.663436 5.29551H10.2003L12.6279 5.45383L12.4771 5.8496L9.48411 2.98417L7.79537 1.17942C7.73506 1.1161 7.68982 1.04222 7.65967 0.957784C7.62951 0.868074 7.61443 0.775726 7.61443 0.680739C7.61443 0.485488 7.67726 0.324538 7.80291 0.197889C7.92856 0.0659631 8.08436 0 8.27033 0C8.3608 0 8.44624 0.0184697 8.52666 0.055409C8.6121 0.0923483 8.69503 0.153034 8.77544 0.237467L13.7738 5.46966C13.9246 5.62269 14 5.79947 14 6Z"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="relative h-full w-full">
+                        <div
+                          style={{
+                            visibility: progress < 0.5 ? "visible" : "hidden",
+                          }}
+                          className="absolute inset-0 p-5 flex flex-col justify-between h-full"
+                        >
+                          <div className="flex justify-between items-start gap-4">
+                            <div className="max-w-xs">
+                              <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
+                              <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
+                            </div>
+                            {f.svg && (
+                              <div className="w-24 flex items-center justify-center">
+                                <span dangerouslySetInnerHTML={{ __html: f.svg }} />
+                              </div>
+                            )}
+                          </div>
+                          <FadingDescription text={f.desc} progress={progress} />
+                        </div>
+                        <div
+                          style={{
+                            visibility: progress >= 0.5 ? "visible" : "hidden",
+                          }}
+                          className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center"
+                        >
+                          <p className="text-md">{f.title}</p>
                           {f.svg && (
-                            <div className="w-24 flex items-center justify-center">
+                            <div className="flex items-center justify-center pb-8">
                               <span dangerouslySetInnerHTML={{ __html: f.svg }} />
                             </div>
                           )}
                         </div>
-                        <FadingDescription text={f.desc} progress={progress} />
                       </div>
-                      <div
-                        style={{
-                          visibility: progress >= 0.5 ? "visible" : "hidden",
-                        }}
-                        className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center"
-                      >
-                        <p className="text-md">{f.title}</p>
-                        {f.svg && (
-                          <div className="flex items-center justify-center pb-8">
-                            <span dangerouslySetInnerHTML={{ __html: f.svg }} />
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    )
                   )}
                 </div>
               );
