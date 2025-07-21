@@ -200,10 +200,10 @@ function FeaturesSection() {
                                 className="self-left rounded-md bg-transparent px-[26px] py-[13px] text-[#252525] border border border-[#7e7e7e]"
                                 type="button"
                                   onClick={() => {
-                                window.location.href = "#community";
+                                window.location.href = "https://panel.moracode-dev.com/login";
                                 }}
                               >
-                                <span className="flex items-center gap-[10px]">COMMUNITY
+                                <span className="flex items-center gap-[10px]">LOG IN
                                                   <svg
                                     width="14"
                                     height="12"
