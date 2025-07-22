@@ -1,17 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, createRef, useMemo } from "react";
 import features from "../data/features";
 
-function FadingDescription({ text, progress }) {
-  const pRef = useRef(null);
-  const descriptionOpacity = Math.max(0, 1 - progress * 2);
 
+function FadingDescription({ text }) {
   return (
     <div className="overflow-hidden flex items-start" style={{ height: "110px", width: "350px" }}>
-      <p
-        ref={pRef}
-        className="text-md md:text-md text-[#252525] tracking-normal"
-        style={{ opacity: descriptionOpacity }}
-      >
+      <p className="text-md md:text-md text-[#252525] tracking-normal fading-description-p">
         {text}
       </p>
     </div>
@@ -21,17 +15,20 @@ function FadingDescription({ text, progress }) {
 function FeaturesSection() {
   const sectionRef = useRef(null);
   const stickyRef = useRef(null);
-  const [scroll, setScroll] = useState(0);
-  const [headerHeight, setHeaderHeight] = useState(0); 
+  const scrollRef = useRef(0);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   const startScrollBuffer = 150;
   const endScrollBuffer = 150;
-  const scrollDurationMultiplier = 2;
+  const scrollDurationMultiplier = 3;
 
-  const allCards = [
+  const allCards = useMemo(() => [
     ...features,
     { title: "GET STARTED", heading: "Every feature is practical, every detail respects your workflow.", isFinal: true },
-  ];
+  ], []); 
+
+  const cardRefs = useRef([]);
+  cardRefs.current = allCards.map((_, i) => cardRefs.current[i] ?? createRef());
 
   const minWidth = 0.1;
   const maxWidth = 0.3;
@@ -43,29 +40,21 @@ function FeaturesSection() {
   useEffect(() => {
     const calculateHeaderHeight = () => {
       const headerElement = document.querySelector("header");
-      if (headerElement) {
-        setHeaderHeight(headerElement.offsetHeight);
-      }
+      if (headerElement) setHeaderHeight(headerElement.offsetHeight);
     };
-
     calculateHeaderHeight();
     window.addEventListener("resize", calculateHeaderHeight);
-
     return () => window.removeEventListener("resize", calculateHeaderHeight);
   }, []);
 
   useEffect(() => {
     const updateSizes = () => {
-      const newCollapseStep =
-        window.innerWidth * (maxWidth - minWidth) * scrollDurationMultiplier;
+      const newCollapseStep = window.innerWidth * (maxWidth - minWidth) * scrollDurationMultiplier;
       const newTotalCollapse = (allCards.length - 1) * newCollapseStep;
       setCollapseStep(newCollapseStep);
       setTotalCollapse(newTotalCollapse);
-      setSectionHeight(
-        newTotalCollapse + window.innerHeight + startScrollBuffer + endScrollBuffer
-      );
+      setSectionHeight(newTotalCollapse + window.innerHeight + startScrollBuffer + endScrollBuffer);
     };
-
     updateSizes();
     window.addEventListener("resize", updateSizes);
     return () => window.removeEventListener("resize", updateSizes);
@@ -75,8 +64,8 @@ function FeaturesSection() {
     const handleScroll = () => {
       if (!stickyRef.current || !sectionRef.current) return;
       const stickyStart = sectionRef.current.offsetTop;
-      const y = window.scrollY;
       const animationStartPoint = stickyStart + startScrollBuffer;
+      const y = window.scrollY;
 
       let localScroll = 0;
       if (y < animationStartPoint) {
@@ -86,69 +75,73 @@ function FeaturesSection() {
       } else {
         localScroll = y - animationStartPoint;
       }
-      setScroll(localScroll);
+      scrollRef.current = localScroll;
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
     handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [sectionHeight, totalCollapse]);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [totalCollapse]);
 
-  const getCardWidth = (i) => {
-    const cardStart = i * collapseStep;
-    const cardEnd = (i + 1) * collapseStep;
-    if (scroll < cardStart) return maxWidth;
-    if (scroll > cardEnd) return minWidth;
-    const progress = (scroll - cardStart) / collapseStep;
-    return maxWidth - (maxWidth - minWidth) * progress;
-  };
+  useEffect(() => {
+    let animationFrameId;
+    const animate = () => {
+      if (collapseStep <= 0) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+      cardRefs.current.forEach((ref, i) => {
+        const cardEl = ref.current;
+        if (!cardEl || allCards[i].isFinal) return;
+        const cardStart = i * collapseStep;
+        const progress = Math.min(1, Math.max(0, (scrollRef.current - cardStart) / collapseStep));
+        const newWidth = maxWidth - (maxWidth - minWidth) * progress;
+        cardEl.style.width = `${newWidth * 100}vw`;
+        const fullContentView = cardEl.querySelector('.full-content');
+        const collapsedContentView = cardEl.querySelector('.collapsed-content');
+        const fadingDescP = cardEl.querySelector('.fading-description-p');
+        if (fullContentView && collapsedContentView && fadingDescP) {
+          fullContentView.style.visibility = progress < 0.5 ? "visible" : "hidden";
+          collapsedContentView.style.visibility = progress >= 0.5 ? "visible" : "hidden";
+          const descriptionOpacity = Math.max(0, 1 - progress * 2);
+          fadingDescP.style.opacity = descriptionOpacity;
+        }
+      });
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animationFrameId = requestAnimationFrame(animate);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [collapseStep, allCards]);
 
   const mobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <>
       <section className="h-[150px] bg-[#DDDDDD]" id="features"></section>
-      <section
-        ref={sectionRef}
-        className="relative w-full bg-[#DDDDDD]"
-        style={{ height: sectionHeight }}
-      >
+      <section ref={sectionRef} className="relative w-full bg-[#DDDDDD]" style={{ height: sectionHeight }}>
         <section
           ref={stickyRef}
           className="sticky left-0 w-full bg-[#DDDDDD] z-10 overflow-hidden"
-          style={{
-            height: `calc(100vh - ${headerHeight}px)`, 
-            top: `${headerHeight}px`, 
-          }}
+          style={{ height: `calc(100vh - ${headerHeight}px)`, top: `${headerHeight}px` }}
         >
           <h2 className="text-1xl md:text-[42px] text-[#252525] mb-12 md:mb-28 px-4 max-w-4xl tracking-normal">
             BY DEVELOPERS FOR DEVELOPERS AND FOCUSED ON THE WORKFLOW
           </h2>
           <div
-            className={`flex items-stretch justify-start gap-0 ${
-              mobile ? "flex-col" : "flex-row"
-            }`}
+            className={`flex items-stretch justify-start gap-0 ${mobile ? "flex-col" : "flex-row"}`}
             style={{ height: "66.7vh", width: "100%" }}
           >
             {allCards.map((f, i) => {
               let cardStyle;
               if (mobile) {
-                cardStyle = {
-                  width: "100%",
-                  height: 370,
-                  marginBottom: 16,
-                };
+                cardStyle = { width: "100%", height: 370, marginBottom: 16 };
               } else {
-                const width = f.isFinal ? 0.5 : getCardWidth(i); 
+                const initialWidth = f.isFinal ? 0.5 : maxWidth;
                 cardStyle = {
-                  width: `${width * 100}vw`,
-                  minWidth: `${minWidth * 100}vw`,                  
+                  width: `${initialWidth * 100}vw`,
+                  minWidth: `${minWidth * 100}vw`,
                   height: "100%",
-                  transition: "width 0.5s cubic-bezier(.4,0,.2,1)",
                   flex: "0 0 auto",
                   background: f.isFinal ? "#D2F944" : "#DDDDDD",
                   overflow: "hidden",
@@ -156,18 +149,11 @@ function FeaturesSection() {
                   borderRadius: "5px",
                 };
               }
-
-              const progress = mobile
-                ? 0
-                : Math.min(
-                    1,
-                    Math.max(0, (scroll - i * collapseStep) / collapseStep)
-                  );
-
               return (
                 <div
-                  key={i}
-                  className={`border flex flex-col transition-all duration-500`}
+                  key={f.title || i}
+                  ref={cardRefs.current[i]}
+                  className={`border flex flex-col `}
                   style={cardStyle}
                 >
                   {mobile ? (
@@ -187,8 +173,7 @@ function FeaturesSection() {
                         <p className="text-sm md:text-lg text-[#252525] tracking-normal">{f.desc}</p>
                       </div>
                     </div>
-                  ) : (
-                    f.isFinal ? (
+                  ) : f.isFinal ? (
                       <>
                       <div className="bg-[#D2F944] flex flex-col w-full">
                           <div className="p-5 flex items-start justify-start mb-20 max-w-xs">                       
@@ -197,7 +182,7 @@ function FeaturesSection() {
                           <div className="flex flex-col max-w-xs self-center">
                             <p className="text-lg text-left text-[#252525] mt-2 mb-6">{f.heading}</p>                           
                             <button
-                                className="self-left rounded-md bg-transparent px-[26px] py-[13px] text-[#252525] border border border-[#7e7e7e]"
+                                className="self-left rounded-md bg-transparent px-[26px] py-[13px] text-[#252525] border border-solid border-[#7e7e7e]"
                                 type="button"
                                   onClick={() => {
                                 window.location.href = "https://panel.moracode-dev.com/login";
@@ -224,42 +209,31 @@ function FeaturesSection() {
                           </div>
                         </div>
                       </>
-                    ) : (
-                      <div className="relative h-full w-full">
-                        <div
-                          style={{
-                            visibility: progress < 0.5 ? "visible" : "hidden",
-                          }}
-                          className="absolute inset-0 p-5 flex flex-col justify-between h-full"
-                        >
-                          <div className="flex justify-between items-start gap-4">
-                            <div className="max-w-xs">
-                              <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
-                              <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
-                            </div>
-                            {f.svg && (
-                              <div className="w-24 flex items-center justify-center">
-                                <span dangerouslySetInnerHTML={{ __html: f.svg }} />
-                              </div>
-                            )}
+                  ) : (
+                    <div className="relative h-full w-full">
+                      <div className="absolute inset-0 p-5 flex flex-col justify-between h-full full-content" style={{visibility: "visible"}}>
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="max-w-xs">
+                            <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
+                            <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
                           </div>
-                          <FadingDescription text={f.desc} progress={progress} />
-                        </div>
-                        <div
-                          style={{
-                            visibility: progress >= 0.5 ? "visible" : "hidden",
-                          }}
-                          className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center"
-                        >
-                          <p className="text-md">{f.title}</p>
                           {f.svg && (
-                            <div className="flex items-center justify-center pb-8">
+                            <div className="w-24 flex items-center justify-center">
                               <span dangerouslySetInnerHTML={{ __html: f.svg }} />
                             </div>
                           )}
                         </div>
+                        <FadingDescription text={f.desc} />
                       </div>
-                    )
+                      <div className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center collapsed-content" style={{ visibility: "hidden" }}>
+                        <p className="text-md">{f.title}</p>
+                        {f.svg && (
+                          <div className="flex items-center justify-center pb-8">
+                            <span dangerouslySetInnerHTML={{ __html: f.svg }} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
               );
