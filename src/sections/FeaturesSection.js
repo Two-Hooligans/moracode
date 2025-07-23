@@ -1,13 +1,13 @@
 import { useRef, useEffect, useState, createRef, useMemo } from "react";
-import features from "../data/features"; // Assuming features.js is in a parent data directory
+import features from "../data/features";
 
-function FadingDescription({ text }) {
-  return (
-    <div className="overflow-hidden flex items-start" style={{ height: "110px", width: "350px" }}>
-      <p className="text-md md:text-md text-[#252525] tracking-normal fading-description-p">
+function FadingElement({ text, elementType = 'p', className = '' }) {
+  const ElementType = elementType;
+
+  return (    
+      <ElementType className={`fading-description ${className}`}>
         {text}
-      </p>
-    </div>
+      </ElementType>    
   );
 }
 
@@ -33,13 +33,13 @@ function FeaturesSection() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-  
+
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-    handleResize(); 
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
 
   const isMobile = windowWidth < 768;
 
@@ -114,8 +114,8 @@ function FeaturesSection() {
         const cardStart = i * collapseStep;
         const progress = Math.min(1, Math.max(0, (scrollRef.current - cardStart) / collapseStep));
 
-        const minSize = 75; 
-        const maxSize = 175; 
+        const minSize = 55;
+        const maxSize = 175;
         const size = maxSize - (maxSize - minSize) * Math.min(progress, 1);
 
         if (isMobile) {
@@ -123,16 +123,16 @@ function FeaturesSection() {
           cardEl.style.height = `${newHeight * 100}vh`;
 
           const headingEl = cardEl.querySelector('.mobile-heading');
-          const fadingDescDiv = cardEl.querySelector('.fading-description-p');
+          const fadingDescDiv = cardEl.querySelector('.fading-description');
           const svgContainer = cardEl.querySelector('.mobile-svg-container');
-          
-          const contentOpacity = Math.max(0, 1 - progress * 2.5);
-          
-          if(headingEl) headingEl.style.opacity = contentOpacity;
-          if(fadingDescDiv) fadingDescDiv.style.opacity = contentOpacity;
+
+          const contentOpacity = Math.max(0, 1 - progress * 1.5);
+
+          if (headingEl) headingEl.style.opacity = contentOpacity;
+          if (fadingDescDiv) fadingDescDiv.style.opacity = contentOpacity;
 
           if (svgContainer) {
-            const verticalOffset = progress * -30; 
+            const verticalOffset = progress * -20;
             svgContainer.style.transform = `rotate(${progress * 90}deg) translateX(${verticalOffset}px)`;
             svgContainer.style.width = `${size}px`;
             svgContainer.style.height = `${size}px`;
@@ -141,16 +141,18 @@ function FeaturesSection() {
         } else {
           const newWidth = maxRatio - (maxRatio - minRatio) * progress;
           cardEl.style.width = `${newWidth * 100}vw`;
-          
+
           const fullContentView = cardEl.querySelector('.full-content');
           const collapsedContentView = cardEl.querySelector('.collapsed-content');
-          const fadingDescP = cardEl.querySelector('.fading-description-p');
-          
-          if (fullContentView && collapsedContentView && fadingDescP) {
+          const fadingElement = cardEl.querySelectorAll('.fading-description');
+
+          if (fullContentView && collapsedContentView && fadingElement) {
             fullContentView.style.visibility = progress < 0.7 ? "visible" : "hidden";
             collapsedContentView.style.visibility = progress >= 0.7 ? "visible" : "hidden";
-            const descriptionOpacity = Math.max(0, 1 - progress * 2);
-            fadingDescP.style.opacity = descriptionOpacity;
+            const elOpacity = Math.max(0, 1 - progress * 1);
+            fadingElement.forEach((el) => {
+              el.style.opacity = elOpacity;
+            });
           }
         }
       });
@@ -171,7 +173,7 @@ function FeaturesSection() {
 
   function getCardSize(i) {
     const minSize = 40;
-    const maxSize = 96; 
+    const maxSize = 96;
     const progress = getCardProgress(i);
     return maxSize - (maxSize - minSize) * progress;
   }
@@ -194,7 +196,7 @@ function FeaturesSection() {
           className="sticky left-0 w-full bg-[#DDDDDD] z-10 overflow-hidden"
           style={{ height: `calc(100vh - ${headerHeight}px)`, top: `${headerHeight}px` }}
         >
-          <h2 className="text-[32px] md:text-[42px] text-[#252525] mb-10 md:mb-28 px-4 max-w-4xl tracking-normal md:leading-none leading-[1.2]">
+          <h2 className="text-[24px] md:text-[42px] text-[#252525] mb-10 md:mb-28 px-4 max-w-4xl tracking-normal md:leading-none leading-[1.2]">
             BY DEVELOPERS FOR DEVELOPERS AND FOCUSED ON THE WORKFLOW
           </h2>
           <div
@@ -203,20 +205,20 @@ function FeaturesSection() {
           >
             {allCards.map((f, i) => {
               let cardStyle;
-              if (isMobile) {                
-                 cardStyle = {
-                   width: "100%",
-                   height: f.isFinal ? `41vh` : `${getCardHeight(i) * 100}vh`,
-                   transition: "height 0.5s cubic-bezier(.4,0,.2,1)",
-                   background: f.isFinal ? "#D2F944" : "#DDDDDD",
-                   overflow: "hidden",
-                   position: "relative",
-                   borderRadius: "6px",
-                   border: "1px solid #C4C4C4",
-                   borderBottom: "0px",
-                   flex: "0 0 auto",
-                   justifyContent:  f.isFinal && "center",
-                 };
+              if (isMobile) {
+                cardStyle = {
+                  width: "100%",
+                  height: f.isFinal ? `41vh` : `${getCardHeight(i) * 100}vh`,
+                  transition: "height 0.5s cubic-bezier(.4,0,.2,1)",
+                  background: f.isFinal ? "#D2F944" : "#DDDDDD",
+                  overflow: "hidden",
+                  position: "relative",
+                  borderRadius: "6px",
+                  border: "1px solid #C4C4C4",
+                  borderBottom: "0px",
+                  flex: "0 0 auto",
+                  justifyContent: f.isFinal && "center",
+                };
               } else {
                 const initialWidth = f.isFinal ? 0.5 : maxRatio;
                 cardStyle = {
@@ -243,7 +245,7 @@ function FeaturesSection() {
                     f.isFinal ? (
                       <div className="bg-[#D2F944] flex flex-col items-center justify-center w-full p-4 text-center mb-6">
                         <div className="flex-grow flex flex-col items-start justify-center w-full">
-                          <h2 className="flex flex-col text-[80px] font-mono text-left text-[#252525] leading-[0.9] -tracking-wider max-w-xs">
+                          <h2 className="flex flex-col text-[80px] font-mono text-left text-[#252525] leading-[0.9 -tracking-wider max-w-xs leading-none">
                             GET STARTED
                           </h2>
                         </div>
@@ -289,7 +291,7 @@ function FeaturesSection() {
                               />
                             )}
                           </div>
-                          <div className="w-full fading-description-p" style={{ transition: "opacity 0.2s linear" }}>
+                          <div className="w-full fading-description" style={{ transition: "opacity 0.2s linear" }}>
                             <p className="text-sm text-[#252525] tracking-normal">{f.desc}</p>
                           </div>
                         </div>
@@ -326,7 +328,7 @@ function FeaturesSection() {
                         <div className="flex justify-between items-start gap-4">
                           <div className="max-w-xs">
                             <p className="text-md mb-2 text-[#252525] tracking-normal">{f.title}</p>
-                            <h2 className="text-[28px] md:text-[28px] mb-0 text-[#252525] tracking-tight">{f.heading}</h2>
+                            <FadingElement text={f.heading} elementType="h2" className="md:w-[260px] md:text-[28px] text-[22px] font-mono mb-0 text-[#252525] tracking-normal" />
                           </div>
                           {f.svg && (
                             <div className="w-24 flex items-center justify-center">
@@ -334,10 +336,12 @@ function FeaturesSection() {
                             </div>
                           )}
                         </div>
-                        <FadingDescription text={f.desc} />
+                        <div className="h-[150px]">
+                          <FadingElement text={f.desc} elementType="p" className="md:w-[350px] text-md text-[#252525] tracking-normal" />
+                        </div>
                       </div>
                       <div className="absolute inset-0 p-5 flex flex-col justify-between h-full items-center collapsed-content" style={{ visibility: "hidden" }}>
-                        <p className="text-md">{f.title}</p>
+                        <p className="text-md text-left w-full">{f.title}</p>
                         {f.svg && (
                           <div className="flex items-center justify-center pb-8">
                             <span dangerouslySetInnerHTML={{ __html: f.svg }} />

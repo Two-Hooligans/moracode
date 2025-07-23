@@ -5,7 +5,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-[#DDDDDD] border border-gray-400 py-20 md:px-4 px-4" id="faq">
+    <section className="bg-[#DDDDDD] border-y border-[#747474] py-20 md:px-4 px-4" id="faq">
       <div className="w-full mx-auto">
         <div className="flex justify-between items-center mb-24">
           <h2 className="mb-8 md:text-[42px] text-[32px] text-[#252525]">FAQ</h2>
@@ -100,8 +100,8 @@ export default function FaqSection() {
         </div>
         <div className="space-y-2">
           {faqs.map((faq, i) => (
-            <div key={i} className="border-b border-gray-300">
-              <div className="flex items-start justify-between py-4 mb-8">
+            <div key={i} className={`border-b border-[#C4C4C4] py-6 ${i === 0 ? "border-t" : ""}`}>
+              <div className="flex items-center justify-between">
                 <div className="md:text-2xl text-lg uppercase text-[#252525] md:max-w-full max-w-xs">
                   {faq.question}
                 </div>
@@ -109,15 +109,14 @@ export default function FaqSection() {
                   className={`ml-4 flex items-center justify-center rounded-full border transition-colors duration-200
                     ${
                       open === i
-                        ? "bg-[#252525] text-[#D2F944]"
-                        : "bg-[#D2F944] border-[#252525] text-[#252525]"
+                        ? "bg-[#252525] text-white"
+                        : "bg-[#D2F944] border-[#7E7E7E] text-[#252525]"
                     }
                   `}
                   style={{
-                    width: 32,
-                    height: 32,
-                    fontSize: 22,
-                    fontWeight: "bold",
+                    width: 41,
+                    height: 40,
+                    fontSize: 16,                    
                   }}
                   onClick={() => setOpen(open === i ? null : i)}
                   aria-label={open === i ? "Collapse" : "Expand"}
@@ -127,7 +126,7 @@ export default function FaqSection() {
               </div>
               {open === i && (
                 <div
-                  className="prose prose-sm text-[#252525] pb-6 md:w-2/4"
+                  className="prose prose-sm text-[#252525] md:w-2/4 mt-10"
                   dangerouslySetInnerHTML={{ __html: faq.answer }}
                 />
               )}
