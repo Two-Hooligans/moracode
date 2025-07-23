@@ -146,7 +146,9 @@ function FeaturesSection() {
                   background: f.isFinal ? "#D2F944" : "#DDDDDD",
                   overflow: "hidden",
                   position: "relative",
-                  borderRadius: "5px",
+                  borderRadius: "6px",
+                  border: "1px solid #C4C4C4",
+                  borderRight: "0px",
                 };
               }
               return (

@@ -11,7 +11,7 @@ const steps = [
     content: (
       <>
         Activate the key by Logging in to Moracode. Don’t have it? Get one{" "}
-        <a href="#" className="underline">
+        <a href="https://panel.moracode-dev.com/get-key" className="underline">
           here
         </a>
       </>
@@ -22,7 +22,7 @@ const steps = [
     title: <>CONFIGURE</>,
     content: (
       <>
-        Set your proffered Conversation, Indexing and Embedding Model
+        Set your preferred Conversation, Indexing, and Embedding Model.
       </>
     ),
   },
@@ -31,7 +31,7 @@ const steps = [
     title: <>CODE</>,
     content: (
       <>
-        Test our product using your code that runs locally on your machine, never leaving your cloud
+        Test our product using your code that runs locally on your machine, never leaving your cloud.
       </>
     ),
   },
