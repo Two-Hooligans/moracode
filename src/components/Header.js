@@ -158,7 +158,7 @@ function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-gray-900 text-lg font-medium"
+                  className="text-[#252525] text-md font-medium"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
