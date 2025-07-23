@@ -3,11 +3,11 @@ function HeroSection() {
     <section className="w-full pt-16 md:px-4 px-4 pb-32 md:pb-80 relative bg-[#DDDDDD]" style={{ zIndex: 10 }}>
       <div className="mx-auto flex flex-col gap-8 relative">
         <div>
-          <h1 className="text-5xl md:text-7xl text-[#252525] mb-8 leading-tight tracking-normal">
+          <h1 className="text-[42px] md:text-7xl text-[#252525] mb-8 leading-tight tracking-normal">
             MORACODE:<br />
             SECURE AI CODING ASSISTANT
           </h1>
-          <p className="text-[21px] md:text-[21px] text-[#252525] mb-8 max-w-[500px] tracking-normal">
+          <p className="text-[18px] md:text-[21px] text-[#252525] mb-8 max-w-[500px] tracking-normal">
             Your code, your AI, your rules—Moracode offers secure, intelligent and private coding assistance with no external data flow.
           </p>
           <div className="flex gap-4">

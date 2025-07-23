@@ -1,7 +1,7 @@
 function TeamsSection() {
   return (
-    <section className="w-full bg-white px-4 md:px-4  pb-20 md:pb-40 pt-[25%] md:pt-[35%]"> 
-      <h2 className=" text-[32px] text-[#252525] mb-8 md:mb-32 tracking-wide max-w-4xl tracking-normal">
+    <section className="w-full bg-white px-4 md:px-4  pb-20 md:pb-40 pt-[45%] md:pt-[35%]"> 
+      <h2 className=" md:text-[32px] text-[24px] text-[#252525] mb-8 md:mb-32 tracking-wide max-w-4xl tracking-normal">
         BUILT FOR TEAMS THAT VALUE SECURITY, PERFORMANCE, AND TRANSPARENCY 
       </h2>
       <div className="mx-auto flex flex-col md:flex-row items-center gap-8 bg-white">

@@ -3,7 +3,7 @@ const features = [
     title: "SAFE",
     heading: "PRIVATE SENIOR AI CODE ENGINEER",
     desc: "Your code never leaves your cloud. Everything runs locally on your machine, with zero data passing through our servers.",
-    svg: `<svg width="105" height="219" viewBox="0 0 105 219" fill="none" xmlns="http://www.w3.org/2000/svg">
+    svg: `<svg width="107" height="224" viewBox="0 0 105 219" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.64844 62.4424V80.0723C8.64866 88.9932 15.9229 96.2674 24.8438 96.2676H42.4736V104.5H24.9277C11.4392 104.5 0.500218 93.5609 0.5 80.0723V62.4424H8.64844Z" fill="#D2F944" stroke="#747474"/>
 <path d="M104.416 62.4424V80.0753C104.498 93.4769 93.4776 104.5 80.0723 104.5H62.4424V96.3516H80.0723C88.9932 96.3514 96.2674 89.0772 96.2676 80.1563V62.4424H104.416Z" fill="#D2F944" stroke="#747474"/>
 <path d="M80.0723 0.583923C93.5609 0.584151 104.5 11.5231 104.5 25.0117V42.5576H96.3516V24.9277C96.3514 16.0066 89.0764 8.73236 80.1553 8.73236H62.4424V0.583923H80.0723Z" fill="#D2F944" stroke="#747474"/>

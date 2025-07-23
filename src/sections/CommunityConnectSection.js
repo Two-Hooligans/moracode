@@ -93,13 +93,13 @@ export default function CommunityConnectSection() {
             <div
               key={i}
               ref={itemRefs.current[i]}
-              className="flex items-stretch border-b border-gray-300 last:border-b-0 px-4 py-6 flex-col md:flex-row gap-4 overflow-hidden"
+              className="flex items-stretch border-b border-[#747474] last:border-b-0 px-4 py-6 flex-col-reverse md:flex-row gap-4 overflow-hidden"
               style={{ height: `${maxItemHeight}px` }}
             >
-              <div className="flex flex-col w-full md:w-2/5 py-4 justify-center">
+              <div className="flex flex-col w-full md:w-2/5 py-2 justify-center">
                 <div className="text-to-fade flex-grow">
-                  <div className="text-[32px] mb-1 text-[#252525]">{item.title}</div>
-                  <div className="text-md text-[#252525]">{item.desc}</div>
+                  <h3 className="mb:text-[32px] text-[26px] mb-1 text-[#252525]">{item.title}</h3>
+                  <p className="text-md text-[#252525] mb-4">{item.desc}</p>
                 </div>
                 <div>
                   <button
