@@ -208,7 +208,7 @@ function FeaturesSection() {
               if (isMobile) {
                 cardStyle = {
                   width: "100%",
-                  height: f.isFinal ? `41vh` : `${getCardHeight(i) * 100}vh`,                  
+                  height: f.isFinal ? `42vh` : `${getCardHeight(i) * 100}vh`,                  
                   transition: "height 0.5s cubic-bezier(.4,0,.2,1)",
                   background: f.isFinal ? "#D2F944" : "#DDDDDD",
                   overflow: "hidden",
