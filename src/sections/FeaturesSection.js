@@ -182,6 +182,7 @@ function DesktopFeatures({ allCards, vw }) {
       <section
         ref={sectionRef}
         className="relative w-full bg-[#DDDDDD]"
+        id="features"
         style={{ height: sectionHeight }}
       >
         <section
