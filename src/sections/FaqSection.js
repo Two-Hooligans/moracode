@@ -103,7 +103,7 @@ export default function FaqSection() {
             />
           </svg>
         </div>
-        <div className="space-y-2">
+        <div>
           {faqs.map((faq, i) => (
             <div
               key={i}
