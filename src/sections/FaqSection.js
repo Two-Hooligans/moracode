@@ -5,10 +5,15 @@ export default function FaqSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-[#DDDDDD] border-y border-[#747474] py-20 md:px-4 px-4" id="faq">
+    <section
+      className="bg-[#DDDDDD] border-y border-[#747474] py-28 md:px-4 px-4"
+      id="faq"
+    >
       <div className="w-full mx-auto">
         <div className="flex justify-between items-center mb-24">
-          <h2 className="mb-8 md:text-[42px] text-[32px] text-[#252525]">FAQ</h2>
+          <h2 className="mb-8 md:text-[42px] text-[32px] text-[#252525]">
+            FAQ
+          </h2>
           <svg
             width="218"
             height="104"
@@ -100,7 +105,12 @@ export default function FaqSection() {
         </div>
         <div className="space-y-2">
           {faqs.map((faq, i) => (
-            <div key={i} className={`border-b border-[#C4C4C4] py-6 ${i === 0 ? "border-t" : ""}`}>
+            <div
+              key={i}
+              className={`border-b border-[#C4C4C4] py-6 ${
+                i === 0 ? "border-t" : ""
+              }`}
+            >
               <div className="flex items-center justify-between">
                 <div className="md:text-2xl text-lg uppercase text-[#252525] md:max-w-full max-w-xs">
                   {faq.question}
@@ -116,7 +126,7 @@ export default function FaqSection() {
                   style={{
                     width: 41,
                     height: 40,
-                    fontSize: 16,                    
+                    fontSize: 16,
                   }}
                   onClick={() => setOpen(open === i ? null : i)}
                   aria-label={open === i ? "Collapse" : "Expand"}
