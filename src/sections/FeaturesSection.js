@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, createRef, useMemo } from "react";
+import { useRef, useEffect, useState, createRef, useMemo } from "react";
 import features from "../data/features";
 
 function FadingElement({ text, elementType = "p", className = "" }) {
@@ -64,11 +64,13 @@ function MobileFeatures({ cards }) {
   );
 }
 
-function DesktopFeatures({ allCards }) {
+function DesktopFeatures({ allCards, vw }) {
   const sectionRef = useRef(null);
   const stickyRef = useRef(null);
   const scrollRef = useRef(0);
   const [headerHeight, setHeaderHeight] = useState(0);
+
+  const isLaptop = vw < 1440 && vw >= 1024;
 
   const startScrollBuffer = 150;
   const endScrollBuffer = 150;
@@ -196,7 +198,10 @@ function DesktopFeatures({ allCards }) {
 
           <div
             className="flex flex-row items-stretch justify-start"
-            style={{ height: "71.2vh", width: "100%" }}
+            style={{
+              height: `${!isLaptop ? "71.2vh" : "68.3vh"}`,
+              width: "100%",
+            }}
           >
             {allCards.map((f, i) => {
               const initialW = f.isFinal ? 0.5 : maxRatio;
@@ -340,7 +345,7 @@ function FeaturesSection() {
   return isMobile ? (
     <MobileFeatures cards={allCards} />
   ) : (
-    <DesktopFeatures allCards={allCards} />
+    <DesktopFeatures allCards={allCards} vw={vw} />
   );
 }
 
