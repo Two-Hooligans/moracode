@@ -1,7 +1,7 @@
 function HeroSection() {
   return (
     <section
-      className="w-full pt-16 md:px-4 px-4 pb-32 md:pb-64 relative bg-[#DDDDDD]"
+      className="w-full pt-16 md:px-4 px-4 pb-32 md:pb-[30%] relative bg-[#DDDDDD]"
       style={{ zIndex: 10 }}
     >
       <div className="mx-auto flex flex-col gap-8 relative">
@@ -68,7 +68,7 @@ function HeroSection() {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <div className="w-full flex justify-center relative z-20 mt-4 md:mt-8 h-full max-w-4xl">
+          <div className="w-full flex justify-center relative z-20 mt-4 md:mt-8 h-full  ">
             <video
               src="/assets/videos/Moracode.mp4"
               className="rounded-lg overflow-hidden shadow-md object-cover absolute"
